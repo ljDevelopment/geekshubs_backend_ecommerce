@@ -17,10 +17,17 @@ UsersController.signup = (req, res) => {
 	User.create(
 		body,
 		function(err, instance) {
-			console.log(err);
-			console.log(instance);
-			if (err) return res.end(err);
-			res.end(JSON.stringify(instance));
+
+			if (err) {
+				console.log(err);
+
+				if (err.code == 11000) {
+					return res.status(412).json(err);
+				}
+
+				return res.json(err);
+			}
+			res.json(instance);
 		}
 	);
 }
