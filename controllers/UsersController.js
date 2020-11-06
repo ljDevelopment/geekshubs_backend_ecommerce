@@ -19,13 +19,11 @@ UsersController.signup = (req, res) => {
 		function(err, instance) {
 
 			if (err) {
-				console.log(err);
 
-				if (err.code == 11000) {
-					return res.status(412).json(err);
-				}
-
-				return res.json(err);
+				let status = (err.code == 11000)
+					? 412
+					: 0;
+				res.status(status).json(err);
 			}
 			res.json(instance);
 		}

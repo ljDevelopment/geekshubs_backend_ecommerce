@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+var config = require('./config');
 
 // https://dev.to/emmysteven/solved-mongoose-unique-index-not-working-45d5	
-mongoose.connect('mongodb+srv://ecommerce:ecommerce@cluster0.lkys6.mongodb.net/ecommerce?retryWrites=true&w=majority', {
+mongoose.connect(config.config.MONODB_URL, {
 	useNewUrlParser: true,
 	useCreateIndex: true,
 	autoIndex: true, //this is the code I added that solved it all

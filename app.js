@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testsRouter = require('./routes/tests');
 
+var config = require('./config/config');
+
 var app = express();
 
 // view engine setup
@@ -23,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-if (process.env.ENV == 'test') {
+if (config.env === 'dev') {
 	app.use('/tests', testsRouter);
 }
 
