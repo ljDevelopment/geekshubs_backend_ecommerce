@@ -6,44 +6,232 @@
 	},
 	"item": [
 		{
-			"name": "users_signup",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\" : \"aa\",\n    \"password\" : \"bbb\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "user",
+			"item": [
+				{
+					"name": "users_signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/users/signup",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "3000",
-					"path": [
-						"users",
-						"signup"
-					]
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"luis\",\n    \"email\" : \"luis@emil.com\",\n    \"password\" : \"mypasswrod\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "tests_get",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
+			"name": "tests",
+			"item": [
+				{
+					"name": "tests_start",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "aeacc753-7264-470c-8c37-8db9e13b2faf",
+								"exec": [
+									"let next = pm.environment.get(\"notfirst\") ",
+									"    && 'tests_users_signup_200' ",
+									"    || 'tests_cleandb';",
+									"",
+									"pm.environment.set('notfirst', true);",
+									"postman.setNextRequest(next);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/tests",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_cleandb",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "01efd38a-9eea-4416-9973-b08f9901e7c0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/tests/cleandb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tests",
+								"cleandb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup ok (412)\", function() {",
+									"    pm.response.to.have.status(412);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
