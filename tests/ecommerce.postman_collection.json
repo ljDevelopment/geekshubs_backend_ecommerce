@@ -83,12 +83,37 @@
 							"script": {
 								"id": "aeacc753-7264-470c-8c37-8db9e13b2faf",
 								"exec": [
-									"let next = pm.environment.get(\"notfirst\") ",
-									"    && 'tests_users_signup_200' ",
-									"    || 'tests_cleandb';",
 									"",
-									"pm.environment.set('notfirst', true);",
-									"postman.setNextRequest(next);"
+									"let isFirst = pm.info.iteration == 0;",
+									"let isLast = pm.info.iteration == (pm.info.iterationCount - 1);",
+									"",
+									"let next = 'tests_cleandb';",
+									"",
+									"if (!isFirst) {",
+									"    ",
+									"    next = 'tests_users_signup_200';",
+									"    if (isLast){",
+									"        ",
+									"        pm.environment.set('afterFeedDB', 'tests_users_signup_noname');",
+									"    }",
+									"}",
+									"",
+									"console.log('start -> ' + next);",
+									"postman.setNextRequest(next);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e87f4c5-7a34-433e-9563-12d91997cefb",
+								"exec": [
+									"pm.test(\"Start\", function() {",
+									"    // TRUE",
+									"})"
 								],
 								"type": "text/javascript"
 							}
@@ -197,7 +222,12 @@
 								"exec": [
 									" pm.test(\"Signup ok (412)\", function() {",
 									"    pm.response.to.have.status(412);",
-									" });"
+									" });",
+									" ",
+									" let next = pm.environment.get('afterFeedDB') || null;",
+									"",
+									" next && console.log(\"DB FEED FINISHED!!\");",
+									"postman.setNextRequest(next);"
 								],
 								"type": "text/javascript"
 							}
@@ -209,6 +239,135 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_noname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup no name\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"\",\n    \"email\" : \"email@emial.com\",\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_noemail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup no emil\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"name\",\n    \"email\" : \"\",\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_nopassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup no password\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"name\",\n    \"email\" : \"email@emial.com\",\n    \"password\" : \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
