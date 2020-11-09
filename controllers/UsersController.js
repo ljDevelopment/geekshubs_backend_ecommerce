@@ -1,6 +1,6 @@
 const { json } = require("express");
 const User = require('../model/User');
-
+const SHA256 = require("crypto-js/sha256");
 
 const UsersController = {};
 
@@ -29,6 +29,8 @@ UsersController.signup = (req, res) => {
 	if (!valid) {
 		return;
 	}
+
+	body.password = SHA256(body.password);
 
 	User.create(
 		body,
