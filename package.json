@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "NODE_ENV=dev nodemon ./bin/www"
+    "dev": "export NODE_ENV=dev && nodemon ./bin/www || SET \"PUERTO=3001\" && nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
