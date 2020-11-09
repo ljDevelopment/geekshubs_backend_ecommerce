@@ -1,13 +1,37 @@
 const { json } = require("express");
 const User = require('../model/User');
 const SHA256 = require("crypto-js/sha256");
+const Base64 = require('crypto-js/enc-base64');
 
 const UsersController = {};
 
 
 UsersController.login = (req, res, next) => {
 
-    res.end("login");
+	const { body } = req;
+
+	let valid = true;
+	['email', 'password'].forEach(
+		field => {
+			if (!body[field]){
+				res.status(400).json({err : `Needed field: ${field}`});
+				valid = false;
+				return;
+			}
+		}
+	)
+	
+	if (!valid) {
+		return;
+	};
+
+	body.password = Base64.stringify(SHA256(body.password));
+
+	User.findByCredentials(
+		body
+	)
+	.then(u => res.json(u))
+	.catch(err => res.status(401).json({err : err}));
 }
 
 
@@ -30,7 +54,7 @@ UsersController.signup = (req, res) => {
 		return;
 	}
 
-	body.password = SHA256(body.password);
+	body.password = Base64.stringify(SHA256(body.password));
 
 	User.create(
 		body,
