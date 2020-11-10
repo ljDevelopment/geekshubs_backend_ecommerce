@@ -56,13 +56,19 @@ UserSchema.statics.findByCredentials
 
 UserSchema.statics.get = async function (id) {
 
-	const user = await User.findById(id)
+	validateFields({ id }, [ 'id' ]);
 
-	if (!user) {
-		throw "User not found by id:" + id;
+
+	const result = await User.findById(id)
+		.then (u => u)
+		.catch(e => null);
+
+	if (!result) {
+
+		throw { code : 401, err: `User not found by id: ${id}` };
 	}
 
-	return user
+	return result;
 }
 
 

@@ -39,7 +39,7 @@ UsersController.getData = (req, res, next) => {
 	
 	User.get(id)
 		.then(u => res.json(u))
-		.catch(err => res.status(401).json({err : err}));
+		.catch(err => res.status(err.code).json({err : err}))
 }
 
 
