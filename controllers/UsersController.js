@@ -10,21 +10,11 @@ UsersController.login = (req, res, next) => {
 
 	const { body } = req;
 
-	if (field = validateFields(
-		body,
-		['email', 'password'],
-	))
-	{
-		return res.status(400).json({err : `Needed field: ${field}`});
-	}	
-
-	body.password = Base64.stringify(SHA256(body.password));
-
 	User.findByCredentials(
 		body
 	)
 	.then(u => res.json(u))
-	.catch(err => res.status(401).json({err : err}));
+	.catch(err => res.status(err.code).json({err : err}));
 }
 
 

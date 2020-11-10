@@ -34,12 +34,18 @@ UserSchema.statics.new = async function(data) {
 }
 
 UserSchema.statics.findByCredentials
-	= async function ({ email, password }) {
+	= async function (credentials) {
 
-		const user = await User.findOne({ email, password })
+		validateFields(credentials, ['email', 'password' ]);
+
+		credentials.password = Base64.stringify(SHA256(credentials.password));
+
+		const user = await User.findOne(credentials);
 		if (!user) {
-			throw "Wrong credentials";
+			throw { code : 401, err: "Wrong credentials" };
 		}
+
+
 		// const token = await user.generateAuthToken();
 
 		// console.log(token);
