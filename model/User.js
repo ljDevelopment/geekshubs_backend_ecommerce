@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
 }
 	, { timestamps: true });
 
+
 UserSchema.statics.findByCredentials = async function ({ email,
 	password }) {
 
@@ -19,7 +20,7 @@ UserSchema.statics.findByCredentials = async function ({ email,
 	if (!user) {
 		throw "Wrong credentials";
 	}
-	console.log(user);
+
 	return user
 }
 
@@ -27,11 +28,34 @@ UserSchema.statics.findByCredentials = async function ({ email,
 UserSchema.statics.get = async function (id) {
 
 	const user = await User.findById(id)
+
 	if (!user) {
 		throw "User not found by id:" + id;
 	}
 	
 	return user
+}
+
+
+UserSchema.statics.update = async function(data){
+
+	let user = await User.get(data._id);
+
+	for (let field in data) {
+		if (field === '_id') { continue;}
+
+		if (typeof(user[field]) === undefined) {
+			throw ("Field not found to update: " + field);
+		}
+		user[field] = data[field];
+	}
+	
+	++user.__v;
+	user.updatedAt = Date.now();
+
+	await user.replaceOne(user);
+
+	return user;
 }
 
 

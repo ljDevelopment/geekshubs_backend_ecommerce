@@ -83,4 +83,15 @@ UsersController.getData = (req, res, next) => {
 }
 
 
+UsersController.update = (req, res, next) => {
+
+	const { id } = req.params;
+	const { body } = req;	
+
+	User.update({_id : id, ...body})
+		.then(u => res.json(u))
+		.catch(err => res.status(401).json({err : err}));	
+}
+
+
 module.exports = UsersController;

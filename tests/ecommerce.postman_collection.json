@@ -89,6 +89,66 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "users_update_name",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"newName\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/update/5faa64c406ca7fb504f204ff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update",
+								"5faa64c406ca7fb504f204ff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users_update_email",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"newEmail\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/update/5faa64c406ca7fb504f204ff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update",
+								"5faa64c406ca7fb504f204ff"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -770,6 +830,193 @@
 							"path": [
 								"users",
 								"fakeid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9804992b-c071-491e-bafe-fbd4c4a36ad5",
+								"exec": [
+									" pm.test(\"Users update name ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users update name ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
+									"    pm.expect(responseJson.email).to.eql(pm.iterationData.get('email'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8a6aaaa0-63a9-4587-baac-9506c192bf9d",
+								"exec": [
+									"pm.environment.set('newName', 'newName');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/update/{{_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update",
+								"{{_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba21a86b-aa3b-4df3-b31d-16c6fda77c7f",
+								"exec": [
+									" pm.test(\"Users update email ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users update email ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
+									"    pm.expect(responseJson.email).to.eql(pm.environment.get('newEmail'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c79c2534-0fa1-4b73-a6c0-14a3ffe153fc",
+								"exec": [
+									"pm.environment.set('newEmail', 'newEmail');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"{{newEmail}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/update/{{_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update",
+								"{{_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a808da7d-53b8-4298-95b3-496238b2d930",
+								"exec": [
+									" pm.test(\"Users update all ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users update all ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
+									"    pm.expect(responseJson.email).to.eql(pm.environment.get('newEmail'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f62a92b7-50c7-4b93-aca6-1f9ba287b78f",
+								"exec": [
+									"pm.environment.set('newName', 'newName2');",
+									"pm.environment.set('newEmail', 'newEmail2');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\",\n    \"email\" : \"{{newEmail}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/update/{{_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update",
+								"{{_id}}"
 							]
 						}
 					},
