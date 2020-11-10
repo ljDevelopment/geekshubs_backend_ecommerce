@@ -10,20 +10,13 @@ UsersController.login = (req, res, next) => {
 
 	const { body } = req;
 
-	let valid = true;
-	['email', 'password'].forEach(
-		field => {
-			if (!body[field]){
-				res.status(400).json({err : `Needed field: ${field}`});
-				valid = false;
-				return;
-			}
-		}
-	)
-	
-	if (!valid) {
-		return;
-	};
+	if (field = validateFields(
+		body,
+		['email', 'password'],
+	))
+	{
+		return res.status(400).json({err : `Needed field: ${field}`});
+	}	
 
 	body.password = Base64.stringify(SHA256(body.password));
 
@@ -39,37 +32,14 @@ UsersController.signup = (req, res) => {
 
 	const { body } = req;
 
-	let valid = true;
-	['name', 'email', 'password'].forEach(
-		field => {
-			if (!body[field]){
-				res.status(400).json({err : `Needed field: ${field}`});
-				valid = false;
-				return;
-			}
-		}
-	);
-
-	if (!valid) {
-		return;
-	}
-
-	body.password = Base64.stringify(SHA256(body.password));
-
-	User.create(
-		body,
-		function(err, instance) {
-
-			if (err) {
-
-				let status = (err.code == 11000)
-					? 412
-					: 0;
-				res.status(status).json(err);
-			}
-			res.json(instance);
-		}
-	);
+	User.new(body)
+		.then(user => { res.json(user); })
+		.catch(err => { 
+			let status = (err.code == 11000)
+							? 412
+							: err.code;
+			res.status(status).json({ err : err });
+		});
 }
 
 
@@ -88,10 +58,23 @@ UsersController.update = (req, res, next) => {
 	const { id } = req.params;
 	const { body } = req;	
 
-	User.update({_id : id, ...body})
+	User.updateById({_id : id, ...body})
 		.then(u => res.json(u))
 		.catch(err => res.status(401).json({err : err}));	
 }
 
+
+
+function validateFields(fields, expected) {
+
+	for (let i = 0; i < expected.length; ++i) {
+
+		let field = expected[i];
+		
+		if (!fields[field]) {
+			return field;
+		}
+	}
+}
 
 module.exports = UsersController;
