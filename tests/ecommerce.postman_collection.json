@@ -50,10 +50,31 @@
 					"response": []
 				},
 				{
-					"name": "user_login",
+					"name": "users_login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"luis@emil.com\",\n    \"password\" : \"mypasswrod\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:3000/users/login",
 							"protocol": "http",
@@ -93,7 +114,7 @@
 									"    ",
 									"    next = 'tests_users_signup_200';",
 									"    if (isLast){",
-									"        ",
+									"",
 									"        pm.environment.set('afterFeedDB', 'tests_users_signup_noname');",
 									"    }",
 									"}",
@@ -178,7 +199,11 @@
 								"exec": [
 									" pm.test(\"Signup ok (200)\", function() {",
 									"    pm.response.to.have.status(200);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    pm.environment.set(\"_id\", responseJson._id);",
 									" });",
+									"",
 									""
 								],
 								"type": "text/javascript"
@@ -384,6 +409,187 @@
 							"path": [
 								"users",
 								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_login_ok",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									"pm.test(\"Users login ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Users login ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    console.log(responseJson);",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
+									"    pm.expect(responseJson._id).to.eql(pm.environment.get('_id'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_login_ko",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f075aeb-6d6a-4020-891d-eca3eb8375a1",
+								"exec": [
+									"pm.test(\"Users login ko status\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"wrongpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_login_noemail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Login no name\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"\",\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_login_nopassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Login no password\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"email@emial.com\",\n    \"password\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
 							]
 						}
 					},
