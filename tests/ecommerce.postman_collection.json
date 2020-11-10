@@ -594,6 +594,186 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "tests_users_get_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "623fa61e-3c3a-4d38-a8cc-a91a9fcf308b",
+								"exec": [
+									"pm.test(\"Users get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Users get ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    console.log(responseJson);",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
+									"    pm.expect(responseJson._id).to.eql(pm.environment.get('_id'));",
+									"    pm.expect(responseJson.email).to.eql(pm.iterationData.get('email'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "01b197dc-e2eb-4611-8a58-233114258b5c",
+								"exec": [
+									"console.log(pm.environment.get('_id'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_no_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "01ee89dc-868f-46af-93ed-36918121816a",
+								"exec": [
+									"pm.test(\"Users get no id\", function() {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d98644d5-90b0-432b-bed2-600d7188b8ed",
+								"exec": [
+									"console.log(pm.environment.get('_id'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_fakeid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d464009-725e-4459-91a1-dc881be72f76",
+								"exec": [
+									"pm.test(\"Users get fake id\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0be8a57f-d460-46ec-8e19-4a722740f30f",
+								"exec": [
+									"console.log(pm.environment.get('_id'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/fakeid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"fakeid"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}

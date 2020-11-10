@@ -75,7 +75,11 @@ UsersController.signup = (req, res) => {
 
 UsersController.getData = (req, res, next) => {
 
-    res.end("getData");
+	const { id } = req.params;
+	
+	User.get(id)
+		.then(u => res.json(u))
+		.catch(err => res.status(401).json({err : err}));
 }
 
 

@@ -1,3 +1,4 @@
+const { json } = require('express');
 const mongoose = require('../config/mongoose');
 
 const UserSchema = new mongoose.Schema({
@@ -13,7 +14,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.statics.findByCredentials = async function ({ email,
 	password }) {
-		console.log({email, password});
+
 	const user = await User.findOne({ email, password })
 	if (!user) {
 		throw "Wrong credentials";
@@ -21,6 +22,18 @@ UserSchema.statics.findByCredentials = async function ({ email,
 	console.log(user);
 	return user
 }
+
+
+UserSchema.statics.get = async function (id) {
+
+	const user = await User.findById(id)
+	if (!user) {
+		throw "User not found by id:" + id;
+	}
+	
+	return user
+}
+
 
 UserSchema.methods.toJSON = function () {
 	const user = this.toObject();
