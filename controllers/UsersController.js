@@ -13,7 +13,11 @@ UsersController.login = (req, res, next) => {
 	User.findByCredentials(
 		body
 	)
-	.then(u => res.json(u))
+	.then(async u => {
+
+		u.token = await u.generateAuthToken(); 
+		res.json(u);
+	})
 	.catch(err => res.status(err.code).json({err : err}));
 }
 
@@ -36,9 +40,12 @@ UsersController.signup = (req, res) => {
 UsersController.getData = (req, res, next) => {
 
 	const { id } = req.params;
+	const { token } = req.query;
 	
-	User.get(id)
-		.then(u => res.json(u))
+	User.get({ id, token})
+		.then(u => { 
+			res.json(u);
+		})
 		.catch(err => res.status(err.code).json({err : err}))
 }
 
@@ -47,24 +54,13 @@ UsersController.update = (req, res, next) => {
 
 	const { id } = req.params;
 	const { body } = req;	
+	const { query } = req;
 
-	User.updateById({_id : id, ...body})
+	User.updateById({ id : id, ...body, ...query })
 		.then(u => res.json(u))
 		.catch(err => res.status(401).json({err : err}));	
 }
 
 
-
-function validateFields(fields, expected) {
-
-	for (let i = 0; i < expected.length; ++i) {
-
-		let field = expected[i];
-		
-		if (!fields[field]) {
-			return field;
-		}
-	}
-}
 
 module.exports = UsersController;

@@ -105,7 +105,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/5faa64c406ca7fb504f204ff",
+							"raw": "http://localhost:3000/users/update/5fabc4b0f721bd29d25c5238?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiYzRiMGY3MjFiZDI5ZDI1YzUyMzgiLCJpYXQiOjE2MDUwOTI1MzF9.nLW8JQAOLWH1G-GUA9eIC5nm8us69JuNYA4hOas5Vf8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -114,7 +114,13 @@
 							"path": [
 								"users",
 								"update",
-								"5faa64c406ca7fb504f204ff"
+								"5fabc4b0f721bd29d25c5238"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiYzRiMGY3MjFiZDI5ZDI1YzUyMzgiLCJpYXQiOjE2MDUwOTI1MzF9.nLW8JQAOLWH1G-GUA9eIC5nm8us69JuNYA4hOas5Vf8"
+								}
 							]
 						}
 					},
@@ -135,7 +141,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/5faa64c406ca7fb504f204ff",
+							"raw": "http://localhost:3000/users/update/5faa77f0378c53c4c97daaa8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -144,7 +150,7 @@
 							"path": [
 								"users",
 								"update",
-								"5faa64c406ca7fb504f204ff"
+								"5faa77f0378c53c4c97daaa8"
 							]
 						}
 					},
@@ -493,6 +499,8 @@
 									"",
 									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
 									"    pm.expect(responseJson._id).to.eql(pm.environment.get('_id'));",
+									"",
+									"    pm.environment.set('token', responseJson.token);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -707,7 +715,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/{{_id}}",
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -716,6 +724,12 @@
 							"path": [
 								"users",
 								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -821,7 +835,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/fakeid",
+							"raw": "http://localhost:3000/users/fakeid?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -830,6 +844,12 @@
 							"path": [
 								"users",
 								"fakeid"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -882,7 +902,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{_id}}",
+							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -892,6 +912,12 @@
 								"users",
 								"update",
 								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -944,7 +970,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{_id}}",
+							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -954,6 +980,12 @@
 								"users",
 								"update",
 								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
@@ -1007,7 +1039,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{_id}}",
+							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1017,6 +1049,12 @@
 								"users",
 								"update",
 								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},

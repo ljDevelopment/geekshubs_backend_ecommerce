@@ -13,13 +13,14 @@ const UserSchema = new mongoose.Schema({
 		unique: true
 	},
 	password: String,
-	tokens: String
+	token: String,
+	tokens: Array
 }
 	, { timestamps: true });
 
-UserSchema.statics.new = async function(data) {
+UserSchema.statics.new = async function (data) {
 
-	validateFields(data, ['name', 'email', 'password' ]);
+	validateFields(data, ['name', 'email', 'password']);
 
 	data.password = Base64.stringify(SHA256(data.password));
 
@@ -29,44 +30,48 @@ UserSchema.statics.new = async function(data) {
 
 	if (result.code) {
 		throw result;
-	}	
+	}
 	return result;
 }
 
 UserSchema.statics.findByCredentials
 	= async function (credentials) {
 
-		validateFields(credentials, ['email', 'password' ]);
+		validateFields(credentials, ['email', 'password']);
 
 		credentials.password = Base64.stringify(SHA256(credentials.password));
 
 		const user = await User.findOne(credentials);
 		if (!user) {
-			throw { code : 401, err: "Wrong credentials" };
+			throw { code: 401, err: "Wrong credentials" };
 		}
-
-
-		// const token = await user.generateAuthToken();
-
-		// console.log(token);
 
 		return user;
 	}
 
 
-UserSchema.statics.get = async function (id) {
+UserSchema.statics.get = async function ({ id, token }) {
 
-	validateFields({ id }, [ 'id' ]);
+	validateFields({ id, token }, ['id', 'token']);
 
+	let result = await User.findById(id)
+		.then(u => u)
+		.catch(e => { err: `User not found by id: ${id}` });
+		
+	try {
 
-	const result = await User.findById(id)
-		.then (u => u)
-		.catch(e => null);
+		if (!result) {
+			throw `User not found by id: ${id}`;
+		}
+		if (result.err){
+			throw result.err;
+		}
 
-	if (!result) {
-
-		throw { code : 401, err: `User not found by id: ${id}` };
-	}
+		result.verifyAuthToken(token);
+	} catch (e) {
+	
+		throw { code: 401, err: e };	
+	}	
 
 	return result;
 }
@@ -74,10 +79,11 @@ UserSchema.statics.get = async function (id) {
 
 UserSchema.statics.updateById = async function (data) {
 
-	let user = await User.get(data._id);
+	let user = await User.get(data);
 
 	for (let field in data) {
-		if (field === '_id') { continue; }
+		if (field === 'id') { continue; }
+		if (field === 'token') { continue; }
 
 		if (typeof (user[field]) === undefined) {
 			throw ("Field not found to update: " + field);
@@ -93,22 +99,47 @@ UserSchema.statics.updateById = async function (data) {
 	return user;
 }
 
-UserSchema.methods.generateAuthToken = function () {
-
+UserSchema.methods.generateAuthToken = async function () {
 	const user = this;
-	const access = 'auth';
 	const token = jwt.sign({ _id: user._id }, 'secretJsonwebtokens');
 
-	return this.updateOne({
+	await this.updateOne({
 		$push: {
 			tokens: token
 		}
 	});
+	return token;
 }
+
+UserSchema.methods.verifyAuthToken = function (token) {
+
+	const user = this;
+
+	try {
+		if (!user.tokens) {
+			throw "No tokens";
+		}
+
+		if (!user.tokens.includes(token)) {
+			throw "Token missmatched";
+		}
+
+		const decoded = jwt.verify(token, 'secretJsonwebtokens');
+
+		if (decoded._id != user._id) {
+			throw "Payload missmatched";
+		}
+	}
+	catch (e) {
+		throw { code: 401, err: e };
+	}
+}
+
 
 UserSchema.methods.toJSON = function () {
 	const user = this.toObject();
-	delete user.password
+	user.password && delete user.password;
+	user.tokens && delete user.tokens;
 	return user;
 };
 
@@ -119,7 +150,7 @@ function validateFields(fields, expected) {
 
 		let field = expected[i];
 		if (!fields[field]) {
-			throw {code : 400, err : `Field not found ${field}`};
+			throw { code: 400, err: `Field not found ${field}` };
 		}
 	}
 }
