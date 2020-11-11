@@ -110,7 +110,8 @@ UserSchema.statics.updateById = async function (data) {
 
 UserSchema.methods.generateAuthToken = async function () {
 	const user = this;
-	const token = jwt.sign({ _id: user._id }, 'secretJsonwebtokens');
+
+	const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
 
 	await this.updateOne({
 		$push: {
@@ -133,7 +134,7 @@ UserSchema.methods.verifyAuthToken = function (token) {
 			throw "Token missmatched";
 		}
 
-		const decoded = jwt.verify(token, 'secretJsonwebtokens');
+		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
 		if (decoded._id != user._id) {
 			throw "Payload missmatched";

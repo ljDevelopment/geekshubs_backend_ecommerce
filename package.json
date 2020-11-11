@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "export NODE_ENV=dev && nodemon ./bin/www || SET \"PUERTO=3001\" && nodemon ./bin/www"
+    "start": "export JWT_SECRET=eieurg && node ./bin/www || SET \"JWT_SECRET=eieurg\" && node ./bin/www",
+    "dev": "export NODE_ENV=dev && export JWT_SECRET=addfkgadf && nodemon ./bin/www || SET \"NODE_ENV=dev\" && SET \"JWT_SECRET=addfkgadf\" && nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
