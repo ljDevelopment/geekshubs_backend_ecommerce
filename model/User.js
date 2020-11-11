@@ -14,15 +14,21 @@ const UserSchema = new mongoose.Schema({
 	},
 	password: String,
 	token: String,
-	tokens: Array
+	tokens: Array,
+	role : {
+		type : String,
+		default : 'user'
+	}
 }
 	, { timestamps: true });
 
 UserSchema.statics.new = async function (data) {
 
 	validateFields(data, ['name', 'email', 'password']);
-
 	data.password = Base64.stringify(SHA256(data.password));
+	if (!data.role) {
+		delete data.role;
+	}
 
 	const result = await User.create(data)
 		.then(u => u)
@@ -31,6 +37,9 @@ UserSchema.statics.new = async function (data) {
 	if (result.code) {
 		throw result;
 	}
+
+	await User.ensureIndexes();
+
 	return result;
 }
 

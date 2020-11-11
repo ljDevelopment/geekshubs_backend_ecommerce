@@ -25,7 +25,7 @@ UsersController.login = (req, res, next) => {
 UsersController.signup = (req, res) => {
 
 	const { body } = req;
-
+	
 	User.new(body)
 		.then(user => { res.json(user); })
 		.catch(err => { 

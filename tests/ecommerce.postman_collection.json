@@ -9,7 +9,7 @@
 			"name": "user",
 			"item": [
 				{
-					"name": "users_signup",
+					"name": "users_signup_default",
 					"event": [
 						{
 							"listen": "test",
@@ -28,6 +28,47 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\" : \"luis\",\n    \"email\" : \"luis@emil.com\",\n    \"password\" : \"mypasswrod\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users_signup_default_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a960ef1-5087-4e0d-9340-521e15dddf98",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"admin\",\n    \"email\" : \"admin@emil.com\",\n    \"password\" : \"mypasswrod\",\n    \"role\" : \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -263,11 +304,17 @@
 							"script": {
 								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
 								"exec": [
-									" pm.test(\"Signup ok (200)\", function() {",
+									" pm.test(\"Signup ok status (200)\", function() {",
 									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"  pm.test(\"Signup ok data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
 									"    pm.environment.set(\"_id\", responseJson._id);",
+									"",
+									"    const expectedRole = pm.iterationData.get('role') || 'user';",
+									"    pm.expect(responseJson.role).to.eql(expectedRole);",
 									" });",
 									"",
 									""
@@ -281,7 +328,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\",\n    \"role\" : \"{{role}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
