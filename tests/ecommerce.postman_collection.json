@@ -91,6 +91,47 @@
 					"response": []
 				},
 				{
+					"name": "users_signup_default_wrong_role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9578876-eb2b-4706-814e-ffc1620284b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"wrongrole\",\n    \"email\" : \"wrongrole@emil.com\",\n    \"password\" : \"mypasswrod\",\n    \"role\" : \"wrong\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "users_login",
 					"event": [
 						{
@@ -222,7 +263,7 @@
 									"    next = 'tests_users_signup_200';",
 									"    if (isLast){",
 									"",
-									"        pm.environment.set('afterFeedDB', 'tests_users_signup_noname');",
+									"        pm.environment.set('afterFeedDB', 'tests_users_signup_wrong_role');",
 									"    }",
 									"}",
 									"",
@@ -351,6 +392,63 @@
 					"response": []
 				},
 				{
+					"name": "tests_users_login_ok",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									"pm.test(\"Users login ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Users login ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    ",
+									"    const users = pm.environment.get('users') || {};",
+									"    users[responseJson.role] = responseJson;",
+									"    pm.environment.set('users', users);",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
+									"    pm.expect(responseJson._id).to.eql(pm.environment.get('_id'));",
+									"",
+									"    pm.environment.set('token', responseJson.token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "tests_users_signup_412",
 					"event": [
 						{
@@ -377,6 +475,50 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_wrong_role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f7ad2e0-505b-4632-81f4-3cf402a9bf09",
+								"exec": [
+									" pm.test(\"Signup ko wrong role\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"wrongrole\",\n    \"email\" : \"wrongrole@emil.com\",\n    \"password\" : \"mypasswrod\",\n    \"role\" : \"wrong\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -528,60 +670,6 @@
 					"response": []
 				},
 				{
-					"name": "tests_users_login_ok",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
-								"exec": [
-									"pm.test(\"Users login ok status\", function() {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Users login ok data\", function() {",
-									"",
-									"    const responseJson = pm.response.json();",
-									"    console.log(responseJson);",
-									"",
-									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
-									"    pm.expect(responseJson._id).to.eql(pm.environment.get('_id'));",
-									"",
-									"    pm.environment.set('token', responseJson.token);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/users/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "tests_users_login_ko",
 					"event": [
 						{
@@ -725,7 +813,6 @@
 									"pm.test(\"Users get ok data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
-									"    console.log(responseJson);",
 									"",
 									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
 									"    pm.expect(responseJson._id).to.eql(pm.environment.get('_id'));",
@@ -740,7 +827,7 @@
 							"script": {
 								"id": "01b197dc-e2eb-4611-8a58-233114258b5c",
 								"exec": [
-									"console.log(pm.environment.get('_id'));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -803,7 +890,7 @@
 							"script": {
 								"id": "d98644d5-90b0-432b-bed2-600d7188b8ed",
 								"exec": [
-									"console.log(pm.environment.get('_id'));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -860,7 +947,7 @@
 							"script": {
 								"id": "0be8a57f-d460-46ec-8e19-4a722740f30f",
 								"exec": [
-									"console.log(pm.environment.get('_id'));"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -896,6 +983,157 @@
 								{
 									"key": "token",
 									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_id_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "137f69bb-44b9-4e68-9091-40119ce84848",
+								"exec": [
+									"pm.test(\"Users get ok admin\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Users get ok admin data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    const users = pm.environment.get('users');",
+									"    const user = users.user;",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(user.name);",
+									"    pm.expect(responseJson._id).to.eql(user._id);",
+									"    pm.expect(responseJson.email).to.eql(user.email);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fb263b42-7837-4c30-9ccd-420ffa5443fa",
+								"exec": [
+									"",
+									"const users = pm.environment.get('users');",
+									"",
+									"const requester = users.admin;",
+									"const user = users.user;",
+									"",
+									"pm.variables.set('idUser', user._id);",
+									"pm.variables.set('tokenRequester', requester.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{idUser}}?token={{tokenRequester}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{idUser}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{tokenRequester}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_id_vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81ac54f6-8807-4474-aaa1-8923048589ae",
+								"exec": [
+									"pm.test(\"Users get ko auth\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fa58218f-9602-468b-aa4c-a855acb6af91",
+								"exec": [
+									"",
+									"const users = pm.environment.get('users');",
+									"",
+									"const requester = users.vendor;",
+									"const user = users.user;",
+									"",
+									"pm.variables.set('idUser', user._id);",
+									"pm.variables.set('tokenRequester', requester.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{idUser}}?token={{tokenRequester}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{idUser}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{tokenRequester}}"
 								}
 							]
 						}
@@ -1101,6 +1339,153 @@
 								{
 									"key": "token",
 									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_by_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4023cfe1-0f57-46c1-a8ea-8f0ac2c6947f",
+								"exec": [
+									" pm.test(\"Users update name by admin ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users update name by admin ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
+									"    pm.expect(responseJson.email).to.eql(pm.variables.get('emailUser'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d191e6a1-dd6e-49f1-a6f4-51459d80f09a",
+								"exec": [
+									"pm.environment.set('newName', 'nameByAdmin');",
+									"",
+									"const users = pm.environment.get('users');",
+									"",
+									"const requester = users.admin;",
+									"const user = users.user;",
+									"",
+									"pm.variables.set('idUser', user._id);",
+									"pm.variables.set('emailUser', user.email);",
+									"pm.variables.set('tokenRequester', requester.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/update/{{idUser}}?token={{tokenRequester}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update",
+								"{{idUser}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{tokenRequester}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_by_vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "56b10b75-63c6-41c0-9bd7-866659271cba",
+								"exec": [
+									" pm.test(\"Users update name by vendor ko\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "462164db-7d97-4b9d-8a78-18b7f16be159",
+								"exec": [
+									"pm.environment.set('newName', 'nameByAdmin');",
+									"",
+									"const users = pm.environment.get('users');",
+									"",
+									"const requester = users.vendor;",
+									"const user = users.user;",
+									"",
+									"pm.variables.set('idUser', user._id);",
+									"pm.variables.set('emailUser', user.email);",
+									"pm.variables.set('tokenRequester', requester.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/update/{{idUser}}?token={{tokenRequester}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update",
+								"{{idUser}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{tokenRequester}}"
 								}
 							]
 						}
