@@ -4,6 +4,7 @@ var router = express.Router();
 const TestsController = require('../controllers/TestsController');
 
 router.get('/', TestsController.base)
-router.get('/cleandb', TestsController.cleandb);
+router.get('/cleanUsers', TestsController.cleanUsers);
+router.get('/cleanProducts', TestsController.cleanProducts);
 
 module.exports = router;

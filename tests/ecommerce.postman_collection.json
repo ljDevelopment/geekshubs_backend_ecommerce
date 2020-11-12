@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "user",
+			"name": "users",
 			"item": [
 				{
 					"name": "users_signup_default",
@@ -179,7 +179,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"newName\"\n    \n}",
+							"raw": "{\n    \"name\" : \"newNameRequested\"\n    \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -187,7 +187,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/5fabc4b0f721bd29d25c5238?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiYzRiMGY3MjFiZDI5ZDI1YzUyMzgiLCJpYXQiOjE2MDUwOTI1MzF9.nLW8JQAOLWH1G-GUA9eIC5nm8us69JuNYA4hOas5Vf8",
+							"raw": "http://localhost:3000/users/update/5fad7a77f8a58d00db304d80?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkN2E3N2Y4YTU4ZDAwZGIzMDRkODIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyMDQ1OTl9.QcxZ_ptn8d0f-aALhdH3Tq2J87EtQZ-mgmE7BVTRIgc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -196,12 +196,12 @@
 							"path": [
 								"users",
 								"update",
-								"5fabc4b0f721bd29d25c5238"
+								"5fad7a77f8a58d00db304d80"
 							],
 							"query": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiYzRiMGY3MjFiZDI5ZDI1YzUyMzgiLCJpYXQiOjE2MDUwOTI1MzF9.nLW8JQAOLWH1G-GUA9eIC5nm8us69JuNYA4hOas5Vf8"
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkN2E3N2Y4YTU4ZDAwZGIzMDRkODIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyMDQ1OTl9.QcxZ_ptn8d0f-aALhdH3Tq2J87EtQZ-mgmE7BVTRIgc"
 								}
 							]
 						}
@@ -242,6 +242,52 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "products",
+			"item": [
+				{
+					"name": "product_create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a9e6837-40ef-4983-be3d-a781c536f7b5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"product\",\n    \"category\" : \"category\",\n    \"price\" : \"1.01\",\n    \"vendor\" : \"5fabc4b0f721bd29d25c5238\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "tests",
 			"item": [
 				{
@@ -256,15 +302,26 @@
 									"let isFirst = pm.info.iteration == 0;",
 									"let isLast = pm.info.iteration == (pm.info.iterationCount - 1);",
 									"",
-									"let next = 'tests_cleandb';",
+									"let next = 'tests_cleanUsers';",
 									"",
 									"if (!isFirst) {",
-									"    ",
-									"    next = 'tests_users_signup_200';",
 									"    if (isLast){",
-									"",
-									"        pm.environment.set('afterFeedDB', 'tests_users_signup_wrong_role');",
+									"        ",
+									"        next = 'tests_users_signup_wrong_role';",
 									"    }",
+									"    else {",
+									"",
+									"        switch (pm.iterationData.get('collection'))",
+									"        {",
+									"            case 'user':",
+									"                next = 'tests_users_signup_200';",
+									"            break;",
+									"            case 'product':",
+									"                next = 'tests_product_create';",
+									"            break;",
+									"        }",
+									"    }",
+									"    ",
 									"}",
 									"",
 									"console.log('start -> ' + next);",
@@ -306,7 +363,7 @@
 					"response": []
 				},
 				{
-					"name": "tests_cleandb",
+					"name": "tests_cleanUsers",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -323,7 +380,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/tests/cleandb",
+							"raw": "http://localhost:3000/tests/cleanUsers",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -331,7 +388,39 @@
 							"port": "3000",
 							"path": [
 								"tests",
-								"cleandb"
+								"cleanUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_cleanProducts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e6c488c1-505c-4458-b21c-c00402ca3603",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/tests/cleanProducts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tests",
+								"cleanProducts"
 							]
 						}
 					},
@@ -352,8 +441,7 @@
 									"  pm.test(\"Signup ok data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
-									"    pm.environment.set(\"_id\", responseJson._id);",
-									"",
+									"    ",
 									"    const expectedRole = pm.iterationData.get('role') || 'user';",
 									"    pm.expect(responseJson.role).to.eql(expectedRole);",
 									" });",
@@ -407,14 +495,9 @@
 									"",
 									"    const responseJson = pm.response.json();",
 									"    ",
-									"    const users = pm.environment.get('users') || {};",
-									"    users[responseJson.role] = responseJson;",
-									"    pm.environment.set('users', users);",
+									"    pm.environment.set(responseJson.role, responseJson);",
 									"",
 									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
-									"    pm.expect(responseJson._id).to.eql(pm.environment.get('_id'));",
-									"",
-									"    pm.environment.set('token', responseJson.token);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -458,12 +541,7 @@
 								"exec": [
 									" pm.test(\"Signup ok (412)\", function() {",
 									"    pm.response.to.have.status(412);",
-									" });",
-									" ",
-									" let next = pm.environment.get('afterFeedDB') || null;",
-									"",
-									" next && console.log(\"DB FEED FINISHED!!\");",
-									"postman.setNextRequest(next);"
+									" });"
 								],
 								"type": "text/javascript"
 							}
@@ -492,6 +570,161 @@
 								"users",
 								"signup"
 							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_itertion_break",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f0567695-1fb4-4fa3-9998-4929c05ecf9e",
+								"exec": [
+									"",
+									"postman.setNextRequest(null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "70abdcda-9d67-4dcb-975b-76af6b44364f",
+								"exec": [
+									" pm.test(\"Create product ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"  pm.test(\"Create product ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    const products = pm.environment.get('products') || [];",
+									"    products.push(responseJson);",
+									"    pm.environment.set('products', products);",
+									"",
+									"    const vendor = pm.environment.get('vendor');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(pm.iterationData.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(pm.iterationData.get('price'));",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5eb3f799-ee2e-44a2-8dff-507bc5ab3973",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('vendorId', vendor._id);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_itertion_break Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ac15465-6a21-4651-ac66-c839c092defe",
+								"exec": [
+									"",
+									"postman.setNextRequest(null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000"
 						}
 					},
 					"response": []
@@ -813,10 +1046,11 @@
 									"pm.test(\"Users get ok data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
 									"",
-									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
-									"    pm.expect(responseJson._id).to.eql(pm.environment.get('_id'));",
-									"    pm.expect(responseJson.email).to.eql(pm.iterationData.get('email'));",
+									"    pm.expect(responseJson.name).to.eql(user.name);",
+									"    pm.expect(responseJson._id).to.eql(user._id);",
+									"    pm.expect(responseJson.email).to.eql(user.email);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -827,7 +1061,10 @@
 							"script": {
 								"id": "01b197dc-e2eb-4611-8a58-233114258b5c",
 								"exec": [
-									""
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -1004,9 +1241,7 @@
 									"pm.test(\"Users get ok admin data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
-									"",
-									"    const users = pm.environment.get('users');",
-									"    const user = users.user;",
+									"    const user = pm.environment.get('user');",
 									"    ",
 									"    pm.expect(responseJson.name).to.eql(user.name);",
 									"    pm.expect(responseJson._id).to.eql(user._id);",
@@ -1022,13 +1257,11 @@
 								"id": "fb263b42-7837-4c30-9ccd-420ffa5443fa",
 								"exec": [
 									"",
-									"const users = pm.environment.get('users');",
+									"const admin = pm.environment.get('admin');",
+									"const user = pm.environment.get('user');",
 									"",
-									"const requester = users.admin;",
-									"const user = users.user;",
-									"",
-									"pm.variables.set('idUser', user._id);",
-									"pm.variables.set('tokenRequester', requester.token);"
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('_token', admin.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -1050,7 +1283,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/{{idUser}}?token={{tokenRequester}}",
+							"raw": "http://localhost:3000/users/{{_id}}?token={{_token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1058,12 +1291,12 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"{{idUser}}"
+								"{{_id}}"
 							],
 							"query": [
 								{
 									"key": "token",
-									"value": "{{tokenRequester}}"
+									"value": "{{_token}}"
 								}
 							]
 						}
@@ -1094,11 +1327,11 @@
 									"",
 									"const users = pm.environment.get('users');",
 									"",
-									"const requester = users.vendor;",
-									"const user = users.user;",
+									"const vendor = pm.environment.get('vendor');",
+									"const user = pm.environment.get('user');",
 									"",
-									"pm.variables.set('idUser', user._id);",
-									"pm.variables.set('tokenRequester', requester.token);"
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', vendor.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -1120,7 +1353,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/{{idUser}}?token={{tokenRequester}}",
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1128,12 +1361,12 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"{{idUser}}"
+								"{{_id}}"
 							],
 							"query": [
 								{
 									"key": "token",
-									"value": "{{tokenRequester}}"
+									"value": "{{token}}"
 								}
 							]
 						}
@@ -1155,9 +1388,13 @@
 									"pm.test(\"Users update name ok data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
 									"",
 									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
-									"    pm.expect(responseJson.email).to.eql(pm.iterationData.get('email'));",
+									"    pm.expect(responseJson.email).to.eql(user.email);",
+									"",
+									"    user.name = responseJson.name;",
+									"    pm.environment.set('user', user);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1168,7 +1405,12 @@
 							"script": {
 								"id": "8a6aaaa0-63a9-4587-baac-9506c192bf9d",
 								"exec": [
-									"pm.environment.set('newName', 'newName');"
+									"pm.environment.set('newName', 'newName');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -1223,9 +1465,13 @@
 									"pm.test(\"Users update email ok data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
 									"    ",
-									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
+									"    pm.expect(responseJson.name).to.eql(user.name);",
 									"    pm.expect(responseJson.email).to.eql(pm.environment.get('newEmail'));",
+									"",
+									"    user.email = responseJson.email;",
+									"    pm.environment.set('user', user);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1236,7 +1482,12 @@
 							"script": {
 								"id": "c79c2534-0fa1-4b73-a6c0-14a3ffe153fc",
 								"exec": [
-									"pm.environment.set('newEmail', 'newEmail');"
+									"pm.environment.set('newEmail', 'newEmail');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -1294,6 +1545,11 @@
 									"",
 									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
 									"    pm.expect(responseJson.email).to.eql(pm.environment.get('newEmail'));",
+									"",
+									"    const user = pm.environment.get('user');",
+									"    user.name = responseJson.name;",
+									"    user.email = responseJson.email;",
+									"    pm.environment.set('user', user);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1305,7 +1561,12 @@
 								"id": "f62a92b7-50c7-4b93-aca6-1f9ba287b78f",
 								"exec": [
 									"pm.environment.set('newName', 'newName2');",
-									"pm.environment.set('newEmail', 'newEmail2');"
+									"pm.environment.set('newEmail', 'newEmail2');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -1360,9 +1621,13 @@
 									"pm.test(\"Users update name by admin ok data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
 									"",
 									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
-									"    pm.expect(responseJson.email).to.eql(pm.variables.get('emailUser'));",
+									"    pm.expect(responseJson.email).to.eql(user.email);",
+									"",
+									"    user.name = responseJson.name;",
+									"    pm.environment.set('user', user);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1375,14 +1640,11 @@
 								"exec": [
 									"pm.environment.set('newName', 'nameByAdmin');",
 									"",
-									"const users = pm.environment.get('users');",
+									"const admin = pm.environment.get('admin');",
+									"const user = pm.environment.get('user');",
 									"",
-									"const requester = users.admin;",
-									"const user = users.user;",
-									"",
-									"pm.variables.set('idUser', user._id);",
-									"pm.variables.set('emailUser', user.email);",
-									"pm.variables.set('tokenRequester', requester.token);"
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', admin.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -1401,7 +1663,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{idUser}}?token={{tokenRequester}}",
+							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1410,12 +1672,12 @@
 							"path": [
 								"users",
 								"update",
-								"{{idUser}}"
+								"{{_id}}"
 							],
 							"query": [
 								{
 									"key": "token",
-									"value": "{{tokenRequester}}"
+									"value": "{{token}}"
 								}
 							]
 						}
@@ -1443,16 +1705,13 @@
 							"script": {
 								"id": "462164db-7d97-4b9d-8a78-18b7f16be159",
 								"exec": [
-									"pm.environment.set('newName', 'nameByAdmin');",
+									"pm.environment.set('newName', 'nameByVendor');",
 									"",
-									"const users = pm.environment.get('users');",
+									"const vendor = pm.environment.get('vendor');",
+									"const user = pm.environment.get('user');",
 									"",
-									"const requester = users.vendor;",
-									"const user = users.user;",
-									"",
-									"pm.variables.set('idUser', user._id);",
-									"pm.variables.set('emailUser', user.email);",
-									"pm.variables.set('tokenRequester', requester.token);"
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', vendor.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -1471,7 +1730,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{idUser}}?token={{tokenRequester}}",
+							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1480,12 +1739,12 @@
 							"path": [
 								"users",
 								"update",
-								"{{idUser}}"
+								"{{_id}}"
 							],
 							"query": [
 								{
 									"key": "token",
-									"value": "{{tokenRequester}}"
+									"value": "{{token}}"
 								}
 							]
 						}

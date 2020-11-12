@@ -1,5 +1,0 @@
-name,email,password,role
-default,default@emil.com,defaultpass,
-user,user@emil.com,userpass,user
-admin,admin@emil.com,adminpass,admin
-vendor,vendor@emil.com,vendorpass,vendor

@@ -1,6 +1,5 @@
-const { json } = require("express");
-const mongoose = require('../config/mongoose');
 const User = require("../model/User");
+const Product = require("../model/Product");
 
 const TestsController = {};
 
@@ -11,7 +10,7 @@ TestsController.base = (req, res, next) => {
 }
 
 
-TestsController.cleandb = async (req, res, next) => {
+TestsController.cleanUsers = async (req, res, next) => {
 
 	// try {
 	// 	await mongoose.connection.dropCollection('users');
@@ -22,6 +21,18 @@ TestsController.cleandb = async (req, res, next) => {
 	// 	res.status(400).json(e);
 	// }
 	await User.deleteMany({}, function(err) {
+
+		if (err) {
+			res.status(400).json(err);
+			return;
+		}
+		res.json({ok: true});
+	})
+}
+
+TestsController.cleanProducts = async (req, res, next) => {
+
+	await Product.deleteMany({}, function(err) {
 
 		if (err) {
 			res.status(400).json(err);

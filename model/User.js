@@ -1,12 +1,13 @@
 const mongoose = require('../config/mongoose');
 const SHA256 = require("crypto-js/sha256");
 const Base64 = require('crypto-js/enc-base64');
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const util = require('../src/util');
 
 const roles = {
-	user : 'user',
-	vendor : 'vendor',
-	admin : 'admin'
+	user: 'user',
+	vendor: 'vendor',
+	admin: 'admin'
 }
 
 const UserSchema = new mongoose.Schema({
@@ -18,16 +19,16 @@ const UserSchema = new mongoose.Schema({
 	},
 	password: String,
 	token: String,
-	role : {
-		type : String,
-		default : roles.user
+	role: {
+		type: String,
+		default: roles.user
 	}
 }
 	, { timestamps: true });
 
 UserSchema.statics.new = async function (data) {
 
-	validateFields(data, ['name', 'email', 'password']);
+	util.validateFields(data, ['name', 'email', 'password']);
 	data.password = Base64.stringify(SHA256(data.password));
 
 	if (!data.role) {
@@ -35,7 +36,7 @@ UserSchema.statics.new = async function (data) {
 		delete data.role;
 	} else if (!roles[data.role]) {
 
-		throw {code : 400, err : "Unknown role " + data.role };
+		throw { code: 400, err: "Unknown role " + data.role };
 	}
 
 	const result = await User.create(data)
@@ -54,7 +55,7 @@ UserSchema.statics.new = async function (data) {
 UserSchema.statics.findByCredentials
 	= async function (credentials) {
 
-		validateFields(credentials, ['email', 'password']);
+		util.validateFields(credentials, ['email', 'password']);
 
 		credentials.password = Base64.stringify(SHA256(credentials.password));
 
@@ -69,26 +70,26 @@ UserSchema.statics.findByCredentials
 
 UserSchema.statics.get = async function ({ id, token }) {
 
-	validateFields({ id, token }, ['id', 'token']);
+	util.validateFields({ id, token }, ['id', 'token']);
 
 	let result = await User.findById(id)
 		.then(u => u)
 		.catch(e => { err: `User not found by id: ${id}` });
-		
+
 	try {
 
 		if (!result) {
 			throw `User not found by id: ${id}`;
 		}
-		if (result.err){
+		if (result.err) {
 			throw result.err;
 		}
 
 		result.verifyAuthToken(token);
 	} catch (e) {
-	
-		throw { code: 401, err: e };	
-	}	
+
+		throw { code: 401, err: e };
+	}
 
 	return result;
 }
@@ -119,7 +120,7 @@ UserSchema.statics.updateById = async function (data) {
 UserSchema.methods.generateAuthToken = async function () {
 	const user = this;
 
-	const token = jwt.sign({ _id: user._id, role : user.role }, process.env.JWT_SECRET);
+	const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
 
 	return token;
 }
@@ -131,13 +132,13 @@ UserSchema.methods.verifyAuthToken = function (token) {
 	try {
 
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+console.log(decoded);
 		if (decoded.role == roles.admin) {
 			return true;
 		}
 
 		if (decoded._id != user._id) {
-			throw "Payload missmatched";
+			throw `Payload missmatched: ${decoded._id} != ${user._id}`;
 		}
 	}
 	catch (e) {
@@ -153,16 +154,6 @@ UserSchema.methods.toJSON = function () {
 };
 
 
-function validateFields(fields, expected) {
-
-	for (let i = 0; i < expected.length; ++i) {
-
-		let field = expected[i];
-		if (!fields[field]) {
-			throw { code: 400, err: `Field not found ${field}` };
-		}
-	}
-}
 
 
 const User = mongoose.model('User', UserSchema);
