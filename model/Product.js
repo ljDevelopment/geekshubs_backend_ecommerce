@@ -4,19 +4,19 @@ const util = require('../src/util');
 
 const ProductSchema = new mongoose.Schema({
 	name: String,
-	category : String,
+	category: String,
 	price: Number,
 	vendor:
-		{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
-	  
+		{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+
 }
 	, { timestamps: true });
 
 
-ProductSchema.statics.new = async function({ data, token }) {
+ProductSchema.statics.new = async function ({ data, token }) {
 
 	util.validateFields({ ...data, token }, ['name', 'category', 'price', 'vendor', 'token']);
-	util.verifyAuthToken({ _id : data.vendor, role : util.roles.vendor }, token);
+	util.verifyAuthToken({ _id: data.vendor, role: util.roles.vendor }, token);
 
 	let error;
 	const result = await Product.create(data)
@@ -32,6 +32,43 @@ ProductSchema.statics.new = async function({ data, token }) {
 
 	return result;
 }
+
+async function get(id) {
+
+	let result = await Product.findById(id)
+		.then(p => p)
+		.catch(e => { err: `Product not found by id: ${id}` });
+
+	try {
+
+		if (!result) {
+			throw `Product not found by id: ${id}`;
+		}
+		if (result.err) {
+			throw result.err;
+		}
+
+	} catch (e) {
+
+		throw { code: 401, err: e };
+	}
+
+	return result;
+}
+
+ProductSchema.statics.erase = async function ( { _id, token }) {
+
+	util.validateFields({ _id, token }, ['_id', 'token']);
+
+	let product = await get(_id);
+
+	util.verifyAuthToken({ _id: product.vendor, role: util.roles.vendor }, token);
+
+	await Product.deleteOne({ _id : product._id });
+
+	return product;
+}
+
 
 const Product = mongoose.model('Product', ProductSchema);
 module.exports = Product;

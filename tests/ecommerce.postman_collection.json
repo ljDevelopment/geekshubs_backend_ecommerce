@@ -762,6 +762,87 @@
 					"response": []
 				},
 				{
+					"name": "tests_product_create_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6907a8df-d0d0-4551-8cd8-af0f3f4d0238",
+								"exec": [
+									" pm.test(\"Create product ok admin status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"  pm.test(\"Create product ok admin data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    const products = pm.environment.get('products') || [];",
+									"    products.push(responseJson);",
+									"    pm.environment.set('products', products);",
+									"",
+									"    const vendor = pm.environment.get('vendor');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(pm.iterationData.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(pm.iterationData.get('price'));",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "652aafdc-683d-434a-9293-1c5051c7620c",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const admin = pm.environment.get('admin');",
+									"pm.variables.set('vendorId', vendor._id);",
+									"pm.variables.set('token', admin.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "tests_product_create_ko_token",
 					"event": [
 						{
@@ -1944,6 +2025,277 @@
 							"path": [
 								"users",
 								"update",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0297da5-90b6-4e7a-9c09-cb97d09535ec",
+								"exec": [
+									" pm.test(\"Create product ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    products.shift();",
+									"    pm.environment.set('products', products);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2cac00d5-faac-4c6b-bd2d-80a187520f6a",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c19c5af-d41d-45d7-a26b-1e7f096c653f",
+								"exec": [
+									" pm.test(\"Create product ok admin status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    products.shift();",
+									"    pm.environment.set('products', products);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "55ea6c5f-a32b-4d3e-9147-a51db80ae28a",
+								"exec": [
+									"const admin = pm.environment.get('admin');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', admin.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f3cf615a-0d1f-43e2-b7c0-730b7cc9f9de",
+								"exec": [
+									" pm.test(\"Create product ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5a6d0136-d9d2-4a51-b565-065552bc4e1d",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', user.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7b76adb-140d-4912-ad7b-1d1e9044fd0a",
+								"exec": [
+									" pm.test(\"Create product ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "197a60c4-7cff-4ed6-9f05-7647112b079c",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('_id', 'fakeid');",
+									"pm.variables.set('token', vendor.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
 								"{{_id}}"
 							],
 							"query": [

@@ -27,7 +27,6 @@ function generateAuthToken({_id, role}) {
 
 function verifyAuthToken({ _id, role }, token) {
 
-
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 

@@ -20,4 +20,14 @@ ProductsController.new =  (req, res) => {
 }
 
 
+ProductsController.delete = (req, res, next) => {
+
+	const id = util.getFieldFromRequest(req, 'id');
+	const token = util.getFieldFromRequest(req, 'token');
+
+	Product.erase({ _id : id, token})
+		.then(p => res.json(p))
+		.catch(err => res.status(401).json({err : err}));	
+}
+
 module.exports = ProductsController;
