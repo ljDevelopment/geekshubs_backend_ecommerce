@@ -1,7 +1,6 @@
 const { json } = require("express");
 const User = require('../model/User');
-const SHA256 = require("crypto-js/sha256");
-const Base64 = require('crypto-js/enc-base64');
+const util = require('../src/util');
 
 const UsersController = {};
 
@@ -15,7 +14,7 @@ UsersController.login = (req, res, next) => {
 	)
 	.then(async u => {
 
-		u.token = await u.generateAuthToken(); 
+		u.token = util.generateAuthToken(u); 
 		res.json(u);
 	})
 	.catch(err => res.status(err.code).json({err : err}));

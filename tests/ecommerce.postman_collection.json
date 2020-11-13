@@ -173,6 +173,66 @@
 					"response": []
 				},
 				{
+					"name": "users_get_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e1934f7-3a57-4fc9-aa87-7056710d4030",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "062dbace-f6b7-4562-b5cb-111e70828d3b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5fadb46c7364771392886683?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkYjQ2YzczNjQ3NzEzOTI4ODY2ODMiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTIxOTQ0MH0.ShUNjFWxk4zwcaajawckN3Vn2_xZ-8lgCAqSQKxsAwg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5fadb46c7364771392886683"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkYjQ2YzczNjQ3NzEzOTI4ODY2ODMiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTIxOTQ0MH0.ShUNjFWxk4zwcaajawckN3Vn2_xZ-8lgCAqSQKxsAwg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "users_update_name",
 					"request": {
 						"method": "PUT",
