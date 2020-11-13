@@ -349,6 +349,41 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "product_update_name",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"newName\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/5faf1a2640027658c335dd73?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmMWEyNjQwMDI3NjU4YzMzNWRkNmYiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzExMDE0fQ.QH_JKK7LQODeRu3k5SIZIOAd6KvAtU0N_-w-cNXfpwI\n",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"5faf1a2640027658c335dd73"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmMWEyNjQwMDI3NjU4YzMzNWRkNmYiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzExMDE0fQ.QH_JKK7LQODeRu3k5SIZIOAd6KvAtU0N_-w-cNXfpwI\n"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -2045,7 +2080,7 @@
 							"script": {
 								"id": "d0297da5-90b6-4e7a-9c09-cb97d09535ec",
 								"exec": [
-									" pm.test(\"Create product ok status\", function() {",
+									" pm.test(\"Delete product ok status\", function() {",
 									"    pm.response.to.have.status(200);",
 									"",
 									"    const products = pm.environment.get('products');",
@@ -2115,7 +2150,7 @@
 							"script": {
 								"id": "1c19c5af-d41d-45d7-a26b-1e7f096c653f",
 								"exec": [
-									" pm.test(\"Create product ok admin status\", function() {",
+									" pm.test(\"Delete product ok admin status\", function() {",
 									"    pm.response.to.have.status(200);",
 									"",
 									"    const products = pm.environment.get('products');",
@@ -2185,7 +2220,7 @@
 							"script": {
 								"id": "f3cf615a-0d1f-43e2-b7c0-730b7cc9f9de",
 								"exec": [
-									" pm.test(\"Create product ko token status\", function() {",
+									" pm.test(\"Delete product ko token status\", function() {",
 									"    pm.response.to.have.status(401);",
 									" });",
 									""
@@ -2251,7 +2286,7 @@
 							"script": {
 								"id": "d7b76adb-140d-4912-ad7b-1d1e9044fd0a",
 								"exec": [
-									" pm.test(\"Create product ko token status\", function() {",
+									" pm.test(\"Delete product ko token status\", function() {",
 									"    pm.response.to.have.status(401);",
 									" });",
 									""
@@ -2281,6 +2316,90 @@
 						"body": {
 							"mode": "raw",
 							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55aff3b6-71e2-477e-8393-c844c0f52ea7",
+								"exec": [
+									" pm.test(\"Update product ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users product email ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const products = pm.environment.get('products');",
+									"    const product = products[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(pm.variables.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(product.category);",
+									"    pm.expect(responseJson.price).to.eql(product.price);",
+									"    pm.expect(responseJson.vendor).to.eql(product.vendor);",
+									"",
+									"    product.name = responseJson.name;",
+									"    products[0] = product;",
+									"    pm.environment.set('products', products);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "651e9ea0-0dd9-4117-96d7-dbc4b3f141dd",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

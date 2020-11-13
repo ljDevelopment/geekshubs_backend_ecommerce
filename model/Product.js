@@ -70,5 +70,33 @@ ProductSchema.statics.erase = async function ( { _id, token }) {
 }
 
 
+ProductSchema.statics.updateById = async function (data) {
+	
+	const { id, token } = data;
+	util.validateFields({ id, token }, ['id', 'token']);
+
+	let product = await get(id);
+
+	util.verifyAuthToken({ _id: product.vendor, role: util.roles.vendor }, token);
+
+	for (let field in data) {
+		if (field === 'id') { continue; }
+		if (field === 'token') { continue; }
+
+		if (typeof (product[field]) === undefined) {
+			throw ("Field not found to update: " + field);
+		}
+		product[field] = data[field];
+	}
+
+	++product.__v;
+	product.updatedAt = Date.now();
+
+	await product.replaceOne(product);
+
+	return product;
+}
+
+
 const Product = mongoose.model('Product', ProductSchema);
 module.exports = Product;

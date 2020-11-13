@@ -30,4 +30,15 @@ ProductsController.delete = (req, res, next) => {
 		.catch(err => res.status(401).json({err : err}));	
 }
 
+ProductsController.modify = (req, res, next) => {
+
+	const { id } = req.params;
+	const { body } = req;	
+	const { query } = req;
+
+	Product.updateById({ id : id, ...body, ...query })
+		.then(u => res.json(u))
+		.catch(err => res.status(401).json({err : err}));	
+}
+
 module.exports = ProductsController;
