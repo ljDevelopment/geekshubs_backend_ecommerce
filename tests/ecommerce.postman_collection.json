@@ -212,7 +212,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5fadb46c7364771392886683?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkYjQ2YzczNjQ3NzEzOTI4ODY2ODMiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTIxOTQ0MH0.ShUNjFWxk4zwcaajawckN3Vn2_xZ-8lgCAqSQKxsAwg",
+							"raw": "http://localhost:3000/users/5fae6c3f9ae088300c823b02?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFlNmMzZjlhZTA4ODMwMGM4MjNiMDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyNjY0OTV9.FQHDmUTXTi3nn27_EYLbwGkExZi-_unUAkxiIS-EOW0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -220,12 +220,12 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5fadb46c7364771392886683"
+								"5fae6c3f9ae088300c823b02"
 							],
 							"query": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkYjQ2YzczNjQ3NzEzOTI4ODY2ODMiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTIxOTQ0MH0.ShUNjFWxk4zwcaajawckN3Vn2_xZ-8lgCAqSQKxsAwg"
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFlNmMzZjlhZTA4ODMwMGM4MjNiMDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyNjY0OTV9.FQHDmUTXTi3nn27_EYLbwGkExZi-_unUAkxiIS-EOW0"
 								}
 							]
 						}
@@ -331,7 +331,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/products",
+							"raw": "http://localhost:3000/products?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFlNjkyNDhmMzlkNzJkMmU3NDQzYzEiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MjY1NzAwfQ.mVJNFV1zNdXXFIvMe38mxVZATvqCRh_d_hgJX12_R70",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -339,6 +339,12 @@
 							"port": "3000",
 							"path": [
 								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFlNjkyNDhmMzlkNzJkMmU3NDQzYzEiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MjY1NzAwfQ.mVJNFV1zNdXXFIvMe38mxVZATvqCRh_d_hgJX12_R70"
+								}
 							]
 						}
 					},
@@ -714,6 +720,7 @@
 								"exec": [
 									"const vendor = pm.environment.get('vendor');",
 									"pm.variables.set('vendorId', vendor._id);",
+									"pm.variables.set('token', vendor.token);",
 									"",
 									"",
 									""
@@ -735,7 +742,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/products",
+							"raw": "http://localhost:3000/products?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -743,6 +750,144 @@
 							"port": "3000",
 							"path": [
 								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_create_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfff8ba0-dc6c-4cb8-88ab-bacf44b766ce",
+								"exec": [
+									" pm.test(\"Create product ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5619f435-05be-4678-8fce-c927b2c5a405",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('vendorId', vendor._id);",
+									"pm.variables.set('token', user.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_create_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "27230d85-a961-481b-b4b8-35a7a05048c8",
+								"exec": [
+									" pm.test(\"Create product ko id status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "03121579-eed9-442f-9046-d1dd3c8462e4",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('vendorId', user._id);",
+									"pm.variables.set('token', vendor.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},

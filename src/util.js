@@ -25,27 +25,65 @@ function generateAuthToken({_id, role}) {
 	return token;
 }
 
-function verifyAuthToken(_id, token) {
+function verifyAuthToken({ _id, role }, token) {
+
 
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-		if (decoded.role == roles.admin) {
+		if (role && decoded.role == roles.admin)
+		{
 			return true;
 		}
 
-		if (decoded._id != _id) {
-			throw `Payload missmatched: ${decoded._id} != ${user._id}`;
+		if (_id && role) {
+			if (decoded._id == _id
+				&& decoded.role == role){
+					return true;
+				}
+		} else if (_id) {
+
+			role = role || roles.admin;
+
+			if (decoded._id == _id
+				|| decoded.role == role ){
+					return true;
+				}	
+		} else if (role) {
+
+			if (decoded.role == role ){
+				return true;
+			}
+		} else {
+
+			throw "No restriction (id nor role) defined";
 		}
-	}
-	catch (e) {
+
+		if (_id)
+		{
+			throw `Payload missmatched: ${decoded._id} != ${_id}`;
+		}
+		if (role) {
+		
+			throw `Payload missmatched: ${decoded.role} != ${role}`;	
+		}
+
+	} catch (e) {
 		throw { code: 401, err: e };
 	}
 }
 
 
+function getFieldFromRequest(req, field) {
+
+	let value = (req.params && req.params[field])
+		|| (req.body && req.body[field])
+		|| (req.query && req.query[field]);
+	return value;
+}
 
 exports.validateFields = validateFields;
 exports.generateAuthToken = generateAuthToken;
 exports.verifyAuthToken = verifyAuthToken;
 exports.roles = roles;
+exports.getFieldFromRequest = getFieldFromRequest;

@@ -85,7 +85,7 @@ UserSchema.statics.get = async function ({ id, token }) {
 			throw result.err;
 		}
 		
-		util.verifyAuthToken(result._id, token);
+		util.verifyAuthToken({ _id : result._id }, token);
 	} catch (e) {
 
 		throw { code: 401, err: e };

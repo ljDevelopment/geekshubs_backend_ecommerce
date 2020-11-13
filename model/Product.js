@@ -13,9 +13,10 @@ const ProductSchema = new mongoose.Schema({
 	, { timestamps: true });
 
 
-ProductSchema.statics.new = async function(data) {
+ProductSchema.statics.new = async function({ data, token }) {
 
-	util.validateFields(data, ['name', 'category', 'price', 'vendor']);
+	util.validateFields({ ...data, token }, ['name', 'category', 'price', 'vendor', 'token']);
+	util.verifyAuthToken({ _id : data.vendor, role : util.roles.vendor }, token);
 
 	let error;
 	const result = await Product.create(data)

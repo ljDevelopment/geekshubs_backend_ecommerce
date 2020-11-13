@@ -38,8 +38,8 @@ UsersController.signup = (req, res) => {
 
 UsersController.getData = (req, res, next) => {
 
-	const { id } = req.params;
-	const { token } = req.query;
+	const id = util.getFieldFromRequest(req, 'id');
+	const token = util.getFieldFromRequest(req, 'token');
 	
 	User.get({ id, token})
 		.then(u => { 
