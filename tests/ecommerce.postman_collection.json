@@ -357,7 +357,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"newName\"\n    \n}",
+							"raw": "{\n    \"name\" : \"newName\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -365,7 +365,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/products/5faf1a2640027658c335dd73?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmMWEyNjQwMDI3NjU4YzMzNWRkNmYiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzExMDE0fQ.QH_JKK7LQODeRu3k5SIZIOAd6KvAtU0N_-w-cNXfpwI\n",
+							"raw": "http://localhost:3000/products/5faf1a2640027658c335dd73?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmMWEyNjQwMDI3NjU4YzMzNWRkNmYiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzExMDE0fQ.QH_JKK7LQODeRu3k5SIZIOAd6KvAtU0N_-w-cNXfpwI",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -378,7 +378,42 @@
 							"query": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmMWEyNjQwMDI3NjU4YzMzNWRkNmYiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzExMDE0fQ.QH_JKK7LQODeRu3k5SIZIOAd6KvAtU0N_-w-cNXfpwI\n"
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmMWEyNjQwMDI3NjU4YzMzNWRkNmYiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzExMDE0fQ.QH_JKK7LQODeRu3k5SIZIOAd6KvAtU0N_-w-cNXfpwI"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_update_price",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : \"noname\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/5fafa011deb3cc5baf1b8406?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmYTAwYWRlYjNjYzViYWYxYjg0MDIiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzQ1Mjk0fQ.mYX6PBZU6ihLRBj7AADw0bfZTdTR97rm4bIobF9dQGA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"5fafa011deb3cc5baf1b8406"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmYTAwYWRlYjNjYzViYWYxYjg0MDIiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzQ1Mjk0fQ.mYX6PBZU6ihLRBj7AADw0bfZTdTR97rm4bIobF9dQGA"
 								}
 							]
 						}
@@ -2351,11 +2386,11 @@
 							"script": {
 								"id": "55aff3b6-71e2-477e-8393-c844c0f52ea7",
 								"exec": [
-									" pm.test(\"Update product ok status\", function() {",
+									" pm.test(\"Update product name ok status\", function() {",
 									"    pm.response.to.have.status(200);",
 									" });",
 									"",
-									"pm.test(\"Users product email ok data\", function() {",
+									"pm.test(\"Users product name ok data\", function() {",
 									"",
 									"    const responseJson = pm.response.json();",
 									"    const products = pm.environment.get('products');",
@@ -2385,6 +2420,308 @@
 									"const products = pm.environment.get('products');",
 									"pm.variables.set('_id', products[0]._id);",
 									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "387b9c04-3538-4b41-8d81-0e8e322c4f45",
+								"exec": [
+									" pm.test(\"Update product category ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users product category ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const products = pm.environment.get('products');",
+									"    const product = products[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(product.name);",
+									"    pm.expect(responseJson.category).to.eql(pm.variables.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(product.price);",
+									"    pm.expect(responseJson.vendor).to.eql(product.vendor);",
+									"",
+									"    product.category = responseJson.category;",
+									"    products[0] = product;",
+									"    pm.environment.set('products', products);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6a2a0c09-bb1a-4318-ae19-9cee0b88f380",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('category', 'newCategory');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\" : \"{{category}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d3d8ce0c-fa91-408c-89e1-f76279dddb91",
+								"exec": [
+									" pm.test(\"Update product price ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users product price ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const products = pm.environment.get('products');",
+									"    const product = products[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(product.name);",
+									"    pm.expect(responseJson.category).to.eql(product.category);",
+									"    pm.expect(responseJson.price).to.eql(pm.variables.get('price'));",
+									"    pm.expect(responseJson.vendor).to.eql(product.vendor);",
+									"",
+									"    product.price = responseJson.price;",
+									"    products[0] = product;",
+									"    pm.environment.set('products', products);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "45bf6a00-ad30-4f3b-b40a-8ceff7bdad04",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('price', 1.1);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : \"{{price}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0b53295-4068-45e4-b363-869f9953931d",
+								"exec": [
+									" pm.test(\"Update product ko id status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "29faf12c-251a-4ab9-ba24-6ba5883c1ad4",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', 'fakeid');",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c16a86b-738b-4edb-92ee-2e3eab2ae847",
+								"exec": [
+									" pm.test(\"Update product ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3a75a1db-d462-4b3c-af06-8f8ea09ef47c",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', user.token);",
 									"pm.variables.set('name', 'newName');",
 									"",
 									"",
