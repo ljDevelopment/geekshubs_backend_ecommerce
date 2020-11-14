@@ -56,7 +56,7 @@ async function get(id) {
 	return result;
 }
 
-ProductSchema.statics.erase = async function ( { _id, token }) {
+ProductSchema.statics.erase = async function ({ _id, token }) {
 
 	util.validateFields({ _id, token }, ['_id', 'token']);
 
@@ -64,14 +64,14 @@ ProductSchema.statics.erase = async function ( { _id, token }) {
 
 	util.verifyAuthToken({ _id: product.vendor, role: util.roles.vendor }, token);
 
-	await Product.deleteOne({ _id : product._id });
+	await Product.deleteOne({ _id: product._id });
 
 	return product;
 }
 
 
 ProductSchema.statics.updateById = async function (data) {
-	
+
 	const { id, token } = data;
 	util.validateFields({ id, token }, ['id', 'token']);
 
@@ -100,14 +100,46 @@ ProductSchema.statics.updateById = async function (data) {
 
 ProductSchema.statics.list = async function (filters) {
 
-	console.log(filters);
-	const filter = {};
-	if (filters.name) {
+	try {
+		if (filters.price) {
 
-		filter.name = new RegExp(`.*${filters.name}.*`, 'i');  
+			switch (filters.price.op) {
+				case '=':
+					filter = { price: { $eq: filters.price.value } };
+					break;
+				case '!=':
+					filter = { price: { $ne: filters.price.value } };
+					break;
+				case '>':
+					filter = { price: { $gt: filters.price.value } };
+					break;
+				case '>=':
+					filter = { price: { $gte: filters.price.value } };
+					break;
+				case '<':
+					filter = { price: { $lt: filters.price.value } };
+					break;
+				case '<=':
+					filter = { price: { $lte: filters.price.value } };
+					break;
+				case 'in':
+					filter = { price: { $in: filters.price.value } };
+					break;
+				case 'nin':
+					filter = { price: { $nin: filters.price.value } };
+					break;
+				default:
+					throw `Unknown op ${filters.price.op}`;
+			}
+		}
+
+		if (filters.name) {
+
+			filter.name = new RegExp(`.*${filters.name}.*`, 'i');
+		}
+	} catch (e) {
+		throw { err : e };
 	}
-
-	console.log(filter);
 
 	const products = await Product.find(filter);
 	return products;
