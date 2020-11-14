@@ -55,7 +55,7 @@ function verifyAuthToken({ _id, role }, token) {
 			}
 		} else {
 
-			throw "No restriction (id nor role) defined";
+			return true;
 		}
 
 		if (_id)

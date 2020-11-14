@@ -98,5 +98,12 @@ ProductSchema.statics.updateById = async function (data) {
 }
 
 
+ProductSchema.statics.list = async function () {
+
+
+	const products = await Product.find();
+	return products;
+}
+
 const Product = mongoose.model('Product', ProductSchema);
 module.exports = Product;

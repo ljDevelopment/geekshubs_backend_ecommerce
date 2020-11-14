@@ -41,4 +41,11 @@ ProductsController.modify = (req, res, next) => {
 		.catch(err => res.status(401).json({err : err}));	
 }
 
+ProductsController.list = (req, res) => {
+
+	Product.list()
+		.then(p => res.json(p))
+		.catch(err => res.status(401).json({err : err}));	
+}
+
 module.exports = ProductsController;
