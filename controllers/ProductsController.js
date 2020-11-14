@@ -43,7 +43,9 @@ ProductsController.modify = (req, res, next) => {
 
 ProductsController.list = (req, res) => {
 
-	Product.list()
+	const { body } = req;
+
+	Product.list(body)
 		.then(p => res.json(p))
 		.catch(err => res.status(401).json({err : err}));	
 }

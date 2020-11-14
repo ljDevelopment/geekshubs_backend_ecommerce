@@ -98,10 +98,18 @@ ProductSchema.statics.updateById = async function (data) {
 }
 
 
-ProductSchema.statics.list = async function () {
+ProductSchema.statics.list = async function (filters) {
 
+	console.log(filters);
+	const filter = {};
+	if (filters.name) {
 
-	const products = await Product.find();
+		filter.name = new RegExp(`.*${filters.name}.*`, 'i');  
+	}
+
+	console.log(filter);
+
+	const products = await Product.find(filter);
 	return products;
 }
 
