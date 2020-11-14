@@ -39,18 +39,12 @@ async function get(id) {
 		.then(p => p)
 		.catch(e => { err: `Product not found by id: ${id}` });
 
-	try {
+	if (!result) {
+		throw { code: 412, err : `Product not found by id: ${id}` };
+	}
 
-		if (!result) {
-			throw `Product not found by id: ${id}`;
-		}
-		if (result.err) {
-			throw result.err;
-		}
-
-	} catch (e) {
-
-		throw { code: 401, err: e };
+	if (result.err) {
+		throw { code: 400, err : result.err };
 	}
 
 	return result;
@@ -100,6 +94,8 @@ ProductSchema.statics.updateById = async function (data) {
 
 ProductSchema.statics.list = async function (filters) {
 
+	let filter = {};
+
 	try {
 		if (filters.price) {
 
@@ -140,6 +136,7 @@ ProductSchema.statics.list = async function (filters) {
 	} catch (e) {
 		throw { err : e };
 	}
+
 
 	const products = await Product.find(filter);
 	return products;
