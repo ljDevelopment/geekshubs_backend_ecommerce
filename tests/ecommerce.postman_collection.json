@@ -542,6 +542,46 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "purchases",
+			"item": [
+				{
+					"name": "purchase_crete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Bordertown\",\n    \"category\" : \"Health\",\n    \"price\" : \"308.64\",\n    \"vendor\" : \"5fb14334231e29ae6e36ec54\",\n    \"buyer\" : \"5fb14334231e29ae6e36ec50\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmIxNDMzNDIzMWUyOWFlNmUzNmVjNTAiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTQ1MjU5Nn0.otBM1LkLkgrrmt7L8Kz4HT4-uYxKRPdu9IVYvPneqIs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmIxNDMzNDIzMWUyOWFlNmUzNmVjNTAiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTQ1MjU5Nn0.otBM1LkLkgrrmt7L8Kz4HT4-uYxKRPdu9IVYvPneqIs"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "tests",
 			"item": [
 				{
@@ -561,7 +601,7 @@
 									"if (!isFirst) {",
 									"    if (isLast){",
 									"        ",
-									"        next = 'tests_users_signup_wrong_role';",
+									"        next = 'tests_purchase';",
 									"    }",
 									"    else {",
 									"",
@@ -675,6 +715,38 @@
 							"path": [
 								"tests",
 								"cleanProducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_cleanPurchases",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e689c74-f67f-4716-a94c-dfb85827133f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/tests/cleanPurchases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tests",
+								"cleanPurchases"
 							]
 						}
 					},
@@ -1199,6 +1271,80 @@
 								"localhost"
 							],
 							"port": "3000"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "031d9fee-85f0-4779-9244-da8b1cc407f8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ab8fe35a-a665-4504-8cf1-1862e13cfd96",
+								"exec": [
+									"",
+									"let index = pm.environment.get('purchaseIndex') || 0;",
+									"",
+									"const user = pm.environment.get('user');",
+									"const products = pm.environment.get('products');",
+									"const product = products[index];",
+									"",
+									"pm.variables.set('name', product.name);",
+									"pm.variables.set('category', product.category);",
+									"pm.variables.set('price', product.price);",
+									"pm.variables.set('buyerId', user._id);",
+									"pm.variables.set('vendorId', product.vendor);",
+									"pm.variables.set('token', user.token);",
+									"",
+									"++index;",
+									"if (index < products.length) {",
+									"    pm.environment.set('purchaseIndex', index); ",
+									"    postman.setNextRequest('tests_purchase');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"buyer\" : \"{{buyerId}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
 						}
 					},
 					"response": []

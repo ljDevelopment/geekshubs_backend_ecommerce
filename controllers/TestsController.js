@@ -1,5 +1,6 @@
 const User = require("../model/User");
 const Product = require("../model/Product");
+const Purchase = require("../model/Purchase");
 
 const TestsController = {};
 
@@ -33,6 +34,20 @@ TestsController.cleanUsers = async (req, res, next) => {
 TestsController.cleanProducts = async (req, res, next) => {
 
 	await Product.deleteMany({}, function(err) {
+
+		if (err) {
+			res.status(400).json(err);
+			return;
+		}
+		res.json({ok: true});
+	})
+}
+
+
+
+TestsController.cleanPurchases = async (req, res, next) => {
+
+	await Purchase.deleteMany({}, function(err) {
 
 		if (err) {
 			res.status(400).json(err);
