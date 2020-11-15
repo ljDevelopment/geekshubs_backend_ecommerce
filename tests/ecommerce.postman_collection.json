@@ -577,6 +577,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "purchase_get_all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -1283,7 +1302,27 @@
 							"script": {
 								"id": "031d9fee-85f0-4779-9244-da8b1cc407f8",
 								"exec": [
-									""
+									" pm.test(\"Create purchase ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"  pm.test(\"Create purchase ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    const purchases = pm.environment.get('purchases') || [];",
+									"    purchases.push(responseJson);",
+									"    pm.environment.set('purchases', purchases);",
+									"",
+									"    const vendor = pm.environment.get('vendor');",
+									"    const user = pm.environment.get('user');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.variables.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(pm.variables.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(pm.variables.get('price'));",
+									"    pm.expect(responseJson.buyer).to.eql(user._id);",
+									"    pm.expect(responseJson.vendor).to.eql(vendor._id);",
+									" });"
 								],
 								"type": "text/javascript"
 							}
@@ -1343,6 +1382,298 @@
 								{
 									"key": "token",
 									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase_get_from_user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5be2ef79-b7ea-489a-b717-f87e589e1757",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get ok data\", function() {",
+									"",
+									"    const purchases = pm.environment.get('purchases');",
+									"    let purchasesIds = purchases.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(purchasesIds).to.include(p._id);",
+									"        purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
+									"    }",
+									"    pm.expect(purchasesIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6d1416be-dadf-4a06-b90c-d53c8f031755",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase_get_from_vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac003bb2-3239-4a5c-a109-7dc53b3cbd0e",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get ok data\", function() {",
+									"",
+									"    const purchases = pm.environment.get('purchases');",
+									"    let purchasesIds = purchases.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(purchasesIds).to.include(p._id);",
+									"        purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
+									"    }",
+									"    pm.expect(purchasesIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9143fd82-4239-45f5-b83d-44246dec2794",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('token', vendor.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase_get_from_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36283938-c561-4bfa-a182-4985e85ac2e0",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get ok data\", function() {",
+									"",
+									"    const purchases = pm.environment.get('purchases');",
+									"    let purchasesIds = purchases.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(purchasesIds).to.include(p._id);",
+									"        purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
+									"    }",
+									"    pm.expect(purchasesIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2797b6ff-8c0c-459e-a3cc-a502c1d2280d",
+								"exec": [
+									"const admin = pm.environment.get('admin');",
+									"pm.variables.set('token', admin.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase_get_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c1b0a8-fac4-4efa-aca4-ed76542ac27e",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d24c9fe0-0074-4cb6-a5cb-2c32fb8ea303",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token=fakeToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "fakeToken"
 								}
 							]
 						}

@@ -33,10 +33,11 @@ PurchasesController.modify = (req, res, next) => {
 
 PurchasesController.list = (req, res) => {
 
+	const token = util.getFieldFromRequest(req, 'token');
 	const { body } = req;
 	const groupBy = util.getFieldFromRequest(req, 'groupBy');
 
-	Purchase.list(body, groupBy)
+	Purchase.list(token,body, groupBy)
 		.then(p => res.json(p))
 		.catch(err => res.status(err.code || 400).json({err : err}));	
 }

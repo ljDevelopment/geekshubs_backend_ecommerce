@@ -88,9 +88,35 @@ PurchaseSchema.statics.updateById = async function (data) {
 }
 
 
-PurchaseSchema.statics.list = async function (filters, groupBy) {
+PurchaseSchema.statics.list = async function (token, filters, groupBy) {
+
+	util.validateFields({ token }, ['token']);
+
+	const payload = util.verifyAuthToken({}, token);
 
 	let filter = {};
+
+	let field;
+	switch (payload.role) {
+		case util.roles.user:
+			field = 'buyer';
+			break;
+
+		case util.roles.vendor:
+			field = 'vendor';
+			break;
+
+		case util.roles.admin:
+			// DO NOTHING, admin returns all purchases
+			break;
+
+		default:
+			throw `Unknown role ${payload.role}`;
+	}
+
+	if (field) {
+		filter[field] = new mongoose.Types.ObjectId(payload._id);
+	}
 
 	try {
 		if (filters.price) {
@@ -127,7 +153,7 @@ PurchaseSchema.statics.list = async function (filters, groupBy) {
 
 		if (filters.name) {
 
-			filter.name = new RegExp(`.*${filters.name}.*`, 'i');
+			filter.name = new RegExp(filters.name, 'i');
 		}
 	} catch (e) {
 		throw { err: e };

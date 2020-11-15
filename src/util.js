@@ -28,34 +28,34 @@ function generateAuthToken({_id, role}) {
 function verifyAuthToken({ _id, role }, token) {
 
 	try {
-		const decoded = jwt.verify(token, process.env.JWT_SECRET);
+		const payload = jwt.verify(token, process.env.JWT_SECRET);
 
-		if (role && decoded.role == roles.admin)
+		if (role && payload.role == roles.admin)
 		{
-			return true;
+			return payload;
 		}
 
 		if (_id && role) {
-			if (decoded._id == _id
-				&& decoded.role == role){
-					return true;
+			if (payload._id == _id
+				&& payload.role == role){
+					return payload;
 				}
 		} else if (_id) {
 
 			role = role || roles.admin;
 
-			if (decoded._id == _id
-				|| decoded.role == role ){
-					return true;
+			if (payload._id == _id
+				|| payload.role == role ){
+					return payload;
 				}	
 		} else if (role) {
 
-			if (decoded.role == role ){
-				return true;
+			if (payload.role == role ){
+				return payload;
 			}
 		} else {
 
-			return true;
+			return payload;
 		}
 
 		if (_id)
