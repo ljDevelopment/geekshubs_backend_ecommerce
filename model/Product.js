@@ -131,7 +131,7 @@ ProductSchema.statics.list = async function (filters, groupBy) {
 
 		if (filters.name) {
 
-			filter.name = new RegExp(`.*${filters.name}.*`, 'i');
+			filter.name = new RegExp(filters.name, 'i');
 		}
 	} catch (e) {
 		throw { err : e };

@@ -167,21 +167,21 @@ PurchaseSchema.statics.list = async function (token, filters, groupBy) {
 				$group:
 				{
 					_id: '$' + groupBy,
-					products: { $push: "$$ROOT" }
+					purchases: { $push: "$$ROOT" }
 				}
 			}
 		);
 	}
 
 
-	let products = await Purchase
+	let purchase = await Purchase
 		.aggregate(aggregation);
 
-	if (groupBy && products.length == 1 && !products[0]._id) {
+	if (groupBy && purchase.length == 1 && !purchase[0]._id) {
 		throw { code: 400, err: `Unknown group by field ${groupBy}` };
 	}
 
-	return products;
+	return purchase;
 }
 
 const Purchase = mongoose.model('Purchase', PurchaseSchema);
