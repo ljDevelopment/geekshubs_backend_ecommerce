@@ -471,6 +471,43 @@
 					"response": []
 				},
 				{
+					"name": "product_get_all_byname_groupByCategory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"be\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?groupBy=category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "product_get_all_byprice",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -2924,6 +2961,224 @@
 							"port": "3000",
 							"path": [
 								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_by_category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5eab857b-6854-4645-ad26-0a33b25a6594",
+								"exec": [
+									"pm.test(\"Products get by category ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get by category ok data\", function() {",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    let productsIds = products.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let category of responseJson) {",
+									"        for (let p of category.products) {",
+									"            ",
+									"            pm.expect(productsIds).to.include(p._id);",
+									"            productsIds = productsIds.filter((value, index, arr) => { return value != p._id;});",
+									"        }",
+									"    }",
+									"    pm.expect(productsIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b3a1cb0-9664-40c5-80d7-b651bf423f4e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?groupBy=category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_by_vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9d9e1c0-f066-426c-b88b-ca414ae39563",
+								"exec": [
+									"pm.test(\"Products get by vendor ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get by vendor ok data\", function() {",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    let productsIds = products.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let category of responseJson) {",
+									"        for (let p of category.products) {",
+									"            ",
+									"            pm.expect(productsIds).to.include(p._id);",
+									"            productsIds = productsIds.filter((value, index, arr) => { return value != p._id;});",
+									"        }",
+									"    }",
+									"    pm.expect(productsIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fb0bf448-b997-4cca-b8fe-44a667bde378",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?groupBy=vendor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "vendor"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_by_ko",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f0a6652e-0ad9-4808-a64f-e65a56ecb20a",
+								"exec": [
+									"pm.test(\"Products get by vendor ok status\", function() {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "49088481-adea-41a3-bf08-57f517809ffe",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?groupBy=wrongField",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "wrongField"
+								}
 							]
 						}
 					},

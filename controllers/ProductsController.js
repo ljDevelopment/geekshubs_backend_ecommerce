@@ -44,8 +44,9 @@ ProductsController.modify = (req, res, next) => {
 ProductsController.list = (req, res) => {
 
 	const { body } = req;
+	const groupBy = util.getFieldFromRequest(req, 'groupBy');
 
-	Product.list(body)
+	Product.list(body, groupBy)
 		.then(p => res.json(p))
 		.catch(err => res.status(err.code || 400).json({err : err}));	
 }

@@ -92,7 +92,7 @@ ProductSchema.statics.updateById = async function (data) {
 }
 
 
-ProductSchema.statics.list = async function (filters) {
+ProductSchema.statics.list = async function (filters, groupBy) {
 
 	let filter = {};
 
@@ -137,8 +137,26 @@ ProductSchema.statics.list = async function (filters) {
 		throw { err : e };
 	}
 
+	const aggregation = [{ $match : filter}];
+	if (groupBy) {
 
-	const products = await Product.find(filter);
+		aggregation.push(
+			{ $group: 
+				{
+					_id : '$' + groupBy,
+					products : { $push: "$$ROOT" }
+				}
+			}
+		);
+	}
+
+	
+	let products = await Product.aggregate(aggregation);
+	
+	if (groupBy && products.length == 1 && !products[0]._id) {
+		throw { code : 400, err : `Unknown group by field ${groupBy}`};
+	}
+
 	return products;
 }
 
