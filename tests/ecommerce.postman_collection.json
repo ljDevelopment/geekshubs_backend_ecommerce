@@ -2414,6 +2414,476 @@
 					"response": []
 				},
 				{
+					"name": "tests_purchases_modify_name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "62bb19d7-8233-4a94-91fd-62f457d48b50",
+								"exec": [
+									" pm.test(\"Update purchase name ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users purchase name ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const purchases = pm.environment.get('purchases');",
+									"    const purchase = purchases[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(pm.variables.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(purchase.category);",
+									"    pm.expect(responseJson.price).to.eql(purchase.price);",
+									"    pm.expect(responseJson.vendor).to.eql(purchase.vendor);",
+									"",
+									"    purchase.name = responseJson.name;",
+									"    purchases[0] = purchase;",
+									"    pm.environment.set('purchases', purchases);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2a32dcab-fe6f-4c38-b0ff-ecdf3ad2d00b",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_name_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "90c8d598-8001-4ab9-b7f6-205de294ff5c",
+								"exec": [
+									" pm.test(\"Update purchase name by admin ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users purchase name by admin ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const purchases = pm.environment.get('purchases');",
+									"    const purchase = purchases[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(pm.variables.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(purchase.category);",
+									"    pm.expect(responseJson.price).to.eql(purchase.price);",
+									"    pm.expect(responseJson.vendor).to.eql(purchase.vendor);",
+									"",
+									"    purchase.name = responseJson.name;",
+									"    purchases[0] = purchase;",
+									"    pm.environment.set('purchases', purchases);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fde4a14e-1d9b-4932-83bd-75406d28e9dd",
+								"exec": [
+									"const admin = pm.environment.get('admin');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', admin.token);",
+									"pm.variables.set('name', 'newNameByAdmin');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0dc1d65f-e461-4107-9165-35178bc4c038",
+								"exec": [
+									" pm.test(\"Update purchase price ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users purchase price ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const purchases = pm.environment.get('purchases');",
+									"    const purchase = purchases[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(purchase.name);",
+									"    pm.expect(responseJson.category).to.eql(purchase.category);",
+									"    pm.expect(responseJson.price).to.eql(pm.variables.get('price'));",
+									"    pm.expect(responseJson.vendor).to.eql(purchase.vendor);",
+									"",
+									"    purchase.price = responseJson.price;",
+									"    purchases[0] = purchase;",
+									"    pm.environment.set('purchases', purchases);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "10cc6936-8e70-409c-a6d9-995be4360a43",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('price', 1.1);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : {{price}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "181e79c5-3379-49e3-a8d3-478078204254",
+								"exec": [
+									" pm.test(\"Update purchase category ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users purchase category ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const purchases = pm.environment.get('purchases');",
+									"    const purchase = purchases[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(purchase.name);",
+									"    pm.expect(responseJson.category).to.eql(pm.variables.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(purchase.price);",
+									"    pm.expect(responseJson.vendor).to.eql(purchase.vendor);",
+									"",
+									"    purchase.category = responseJson.category;",
+									"    purchases[0] = purchase;",
+									"    pm.environment.set('purchases', purchases);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2c232862-9040-4a1e-9e42-741681c57e8c",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('category', 'newCategory');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\" : \"{{category}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ff3971a9-406c-4904-ab77-2f3d02e662e0",
+								"exec": [
+									" pm.test(\"Update purchase ko id status\", function() {",
+									"    pm.response.to.have.status(412);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7f02ac2d-6ce1-410b-9457-0c3b326da8af",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', 'fakeId');",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa4dfacd-1eca-421c-9aab-967b95fcb09e",
+								"exec": [
+									" pm.test(\"Update purchase ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4d93c702-73a3-48e1-8544-25a1f5c53cd8",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', user.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "tests_users_signup_wrong_role",
 					"event": [
 						{
