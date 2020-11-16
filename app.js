@@ -10,8 +10,6 @@ var productsRouter = require('./routes/products');
 var purchasesRouter = require('./routes/purchases');
 var testsRouter = require('./routes/tests');
 
-var config = require('./config/config');
-
 var app = express();
 
 // view engine setup
@@ -29,7 +27,7 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/purchases', purchasesRouter);
 
-if (config.env === 'dev') {
+if (process.env.ENV === 'dev') {
 	app.use('/tests', testsRouter);
 }
 
