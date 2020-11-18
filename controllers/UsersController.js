@@ -57,7 +57,7 @@ UsersController.update = (req, res, next) => {
 
 	User.updateById({ id : id, ...body, ...query })
 		.then(u => res.json(u))
-		.catch(err => res.status(401).json({err : err}));	
+		.catch(err => res.status(err.code ? err.code : 401).json({err : err}));	
 }
 
 

@@ -115,12 +115,39 @@ const PurchaseSchema = new mongoose.Schema({
 ## Backend endpoints
 ### User endpoints
 *[routes/users.js](routes/users.js)*
-#### Login
-**POST** /users/login
-- body.email
-- body.password
+#### User signup
+Creates a new user. Default role if not provided is 'user'. If ok, returns the data of the new user created.
 
-RESULT status(200): Ok
+**POST** /users/signup
+
+- [body] name: string (required)
+- [body] email: string (required)
+- [body] password: string (required)
+- [body] role: string (default 'user')
+
+**status**(200): Ok
+```json
+{
+    "role": "user",
+    "_id": "5fb4dc567f9925eb6a44e560",
+    "name": "default",
+    "email": "default@emil.com",
+    "createdAt": "2020-11-18T08:33:26.741Z",
+    "updatedAt": "2020-11-18T08:33:26.741Z",
+    "__v": 0
+}
+```
+**status**(400): Any parameter missing or wrong role.
+**status**(412): Duplicated email
+
+#### User login
+Validates the credentials sent. If ok, returns the data of the user, plus the generated token used for future request validations.
+
+**POST** /users/login
+- [body] email: string (required)
+- [body] password: string (required)
+
+**status**(200): Ok
 ```json
 {
     "role": "user",
@@ -133,6 +160,61 @@ RESULT status(200): Ok
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI0ZGFkZTcxZDgxMWU5YWEzNGZjMjkiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTY4ODAzMH0.eDKFhi5a_E-d5MLWAS0yYppfhusVH--p4ksvjJJSYew"
 }
 ```
+
+**status**(400): Any parameter missing
+**status**(401): User not found with that credentials
+
+
+#### Get user data
+Retrieves the data of one user. To get the user data, the token provided must be from itself or from an admin.
+
+**GET** /users/:id
+
+- [params] id: string (required)
+- [body | query | params]token: string (required)
+
+**status**(200): Ok
+```json
+{
+    "role": "user",
+    "_id": "5fb4e80d9dc8a9f3353f20d8",
+    "name": "user",
+    "email": "user@emil.com",
+    "createdAt": "2020-11-18T09:23:25.451Z",
+    "updatedAt": "2020-11-18T09:23:25.451Z",
+    "__v": 0
+}
+```
+
+**status**(400): Any parameter missing
+**status**(401): Token expired, insufficient permissions or user not found.
+
+#### Update user data
+Changes the data of one user. To update the user data, the token provided must be from itself or from an admin.
+
+**PUT** /users/:id
+
+- [params] id: string (required)
+- [body | query | params]token: string (required)
+- [body] name: string (optional)
+- [body] email: string (optional)
+- [body] password: string (optional)
+
+**status**(200): Ok
+```json
+{
+    "role": "user",
+    "_id": "5fb4e80d9dc8a9f3353f20d8",
+    "name": "user",
+    "email": "user@emil.com",
+    "createdAt": "2020-11-18T09:23:25.451Z",
+    "updatedAt": "2020-11-18T09:23:25.451Z",
+    "__v": 0
+}
+```
+
+**status**(400): Any parameter missing or wrong field provided to be updated.
+**status**(401): Token expired, insufficient permissions or user not found.
 
 ### Product endpoints
 *[routes/products.js](routes/products.js)*

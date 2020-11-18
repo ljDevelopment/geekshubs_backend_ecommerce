@@ -29,10 +29,7 @@ UserSchema.statics.new = async function (data) {
 	if (!data.role) {
 
 		delete data.role;
-	} else if (!util.roles[data.role]) {
-
-		throw { code: 400, err: "Unknown role " + data.role };
-	}
+	} 
 
 	const result = await User.create(data)
 		.then(u => u)
@@ -40,6 +37,10 @@ UserSchema.statics.new = async function (data) {
 
 	if (result.code) {
 		throw result;
+	}
+	if (result.errors && result.errors.role) 
+	{
+		throw { code : 400, err : `Unknown role ${data.role}` };
 	}
 
 	await User.ensureIndexes();
@@ -99,12 +100,16 @@ UserSchema.statics.updateById = async function (data) {
 		if (field === 'id') { continue; }
 		if (field === 'token') { continue; }
 
-		if (typeof (user[field]) === undefined) {
-			throw ("Field not found to update: " + field);
+		if (typeof (user[field]) === 'undefined') {
+			throw { code: 400, err : `Field not found to update: ${field}` };
 		}
 		user[field] = data[field];
 	}
 
+	if (user.password)
+	{
+		user.password = Base64.stringify(SHA256(data.password));
+	}
 	++user.__v;
 	user.updatedAt = Date.now();
 
