@@ -1,0 +1,140 @@
+
+
+#  2020-09- Backend Express
+
+ - **Author**: Luis Javier López Arredondo
+ - **Technologies**: [NodeJS](https://nodejs.dev/), [Express](https://expressjs.com/), [MongoDB](https://www.mongodb.com/), [Mongoose](https://mongoosejs.com/), [Postman](https://www.postman.com/)
+ - **Abstract**: Final challenge for the course *2020-09- Backend Express* at [GeeksHubs](https://geekshubs.com/). Description for the requirements of the challenge can be found in [Reto Final Backend E-Commerce - BTC Backend.pdf](Reto%20Final%20Backend%20E-Commerce%20-%20BTC%20Backend.pdf).
+
+### To evaluate
+- All requirements fulfilled, including extras.
+- MVC architecture.
+- Important config data hidden in environment variables using [dotenv](https://www.npmjs.com/package/dotenv).
+- Password stored hashed to protect plain passwords to be stolen or watched.
+- Unit testing with Postman only in dev environment.
+
+#### Table of contents
+1. How to...
+	1. [How to install](#how-to-install)
+	2. [How to run](#how-to-run)
+	3. [How to run unit tests](#how-to-run-unit-tests)
+2. Requirements
+3. DB
+4. Backend endpoints
+	1. User endpoints
+	2. Product endpoints
+	3. Purchase endpoints
+
+## How to...
+### How to install
+1. Install [NodeJS](https://nodejs.dev/).
+2. Run 'npm install'
+3. Setup a [MongoDB](https://www.mongodb.com/) data base.
+### How to run
+1. Create a .env file in the root of the project with these variables:
+	- PORT: listening port (3000 will be used if not set).
+	- MONGODB_URL: url of the [MongoDB](https://www.mongodb.com/) to be used.
+	- ENV: environment identifier (if equals to 'dev', tests end points will be enabled).
+	- JWT_SECRET: private key used to generate auth [tokens](#token-authentication).
+2. Command line:
+	1. Production: `npm start` --> `node -r dotenv/config ./bin/www`
+	2. Development: `npm run dev` --> `nodemon -r dotenv/config ./bin/www` (if you have nodemon package installed as dev)
+### How to run unit tests
+1. Open [Postman](https://www.postman.com/).
+2. Import file *tests/ecommerce.postman_collection.json*.
+3. Open Postman's Runner.
+4. Select the folder *tests*.
+5. In *Data*, select the file *tests/data.csv*.
+6. Launch the tests with the button *run*.
+## Requirements
+-  **Users**: Token authentication
+-  **Users**: Login
+-  **Users**: Signup
+-  **Users**: User data
+-  **Users**: EXTRA: user roles
+-  **Users**: EXTRA: user update
+-  **Products**: Create, remove, update (by vendor)
+-  **Products**: List products
+-  **Products**: Filter products
+-  **Products**: EXTRA: by vendor
+-  **Products**: EXTRA: by category
+-  **Purchases**: Add purchase
+-  **Purchases**: List purchases 
+-  **Purchases**: EXTRA: by user
+-  **Purchases**: EXTRA: update (by vendor)
+## DB
+[MongoDB](https://www.mongodb.com/) and [Mongoose](https://mongoosejs.com/).
+### User
+*[model/User.js](model/User.js)*
+```javascript
+const UserSchema = new mongoose.Schema({
+	name: String,
+	email: {
+		type: String,
+		required: true,
+		unique: true
+	},
+	password: String,
+	token: String,
+	role: {
+		type: String,
+		enum: [ util.roles.user, util.roles.admin, util.roles.vendor ],
+		default: util.roles.user
+	}
+}
+	, { timestamps: true })
+```
+### Product
+*[model/Product.js](model/Product.js)*
+```javascript
+const ProductSchema = new mongoose.Schema({
+	name: String,
+	category: String,
+	price: Number,
+	vendor:
+		{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+
+}
+	, { timestamps: true })
+```
+### Purchase
+*[model/Purchase.js](model/Purchase.js)*
+```javascript
+const PurchaseSchema = new mongoose.Schema({
+	name: String,
+	category: String,
+	price: Number,
+	buyer:
+		{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	vendor:
+		{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+}
+	, { timestamps: true })
+```
+
+## Backend endpoints
+### User endpoints
+*[routes/users.js](routes/users.js)*
+#### Login
+**POST** /users/login
+- body.email
+- body.password
+
+RESULT status(200): Ok
+```json
+{
+    "role": "user",
+    "_id": "5fb4dade71d811e9aa34fc29",
+    "name": "default",
+    "email": "default@emil.com",
+    "createdAt": "2020-11-18T08:27:10.151Z",
+    "updatedAt": "2020-11-18T08:27:10.151Z",
+    "__v": 0,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI0ZGFkZTcxZDgxMWU5YWEzNGZjMjkiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTY4ODAzMH0.eDKFhi5a_E-d5MLWAS0yYppfhusVH--p4ksvjJJSYew"
+}
+```
+
+### Product endpoints
+*[routes/products.js](routes/products.js)*
+### Purchases endpoints
+*[routes/purchases.js](routes/purchases.js)*

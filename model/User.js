@@ -3,11 +3,6 @@ const SHA256 = require("crypto-js/sha256");
 const Base64 = require('crypto-js/enc-base64');
 const util = require('../src/util');
 
-const roles = {
-	user: 'user',
-	vendor: 'vendor',
-	admin: 'admin'
-}
 
 const UserSchema = new mongoose.Schema({
 	name: String,
@@ -20,6 +15,7 @@ const UserSchema = new mongoose.Schema({
 	token: String,
 	role: {
 		type: String,
+		enum: [ util.roles.user, util.roles.admin, util.roles.vendor ],
 		default: util.roles.user
 	}
 }
@@ -33,7 +29,7 @@ UserSchema.statics.new = async function (data) {
 	if (!data.role) {
 
 		delete data.role;
-	} else if (!roles[data.role]) {
+	} else if (!util.roles[data.role]) {
 
 		throw { code: 400, err: "Unknown role " + data.role };
 	}

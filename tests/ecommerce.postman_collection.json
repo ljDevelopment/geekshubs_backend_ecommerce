@@ -247,7 +247,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/5fad7a77f8a58d00db304d80?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkN2E3N2Y4YTU4ZDAwZGIzMDRkODIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyMDQ1OTl9.QcxZ_ptn8d0f-aALhdH3Tq2J87EtQZ-mgmE7BVTRIgc",
+							"raw": "http://localhost:3000/users/5fad7a77f8a58d00db304d80?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkN2E3N2Y4YTU4ZDAwZGIzMDRkODIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyMDQ1OTl9.QcxZ_ptn8d0f-aALhdH3Tq2J87EtQZ-mgmE7BVTRIgc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -255,7 +255,6 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"update",
 								"5fad7a77f8a58d00db304d80"
 							],
 							"query": [
@@ -283,7 +282,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/5faa77f0378c53c4c97daaa8",
+							"raw": "http://localhost:3000/users/5faa77f0378c53c4c97daaa8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -291,7 +290,6 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"update",
 								"5faa77f0378c53c4c97daaa8"
 							]
 						}
@@ -3583,7 +3581,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -3591,7 +3589,6 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"update",
 								"{{_id}}"
 							],
 							"query": [
@@ -3660,7 +3657,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -3668,7 +3665,6 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"update",
 								"{{_id}}"
 							],
 							"query": [
@@ -3739,7 +3735,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -3747,7 +3743,6 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"update",
 								"{{_id}}"
 							],
 							"query": [
@@ -3817,7 +3812,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -3825,7 +3820,6 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"update",
 								"{{_id}}"
 							],
 							"query": [
@@ -3884,7 +3878,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/update/{{_id}}?token={{token}}",
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -3892,7 +3886,6 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"update",
 								"{{_id}}"
 							],
 							"query": [
