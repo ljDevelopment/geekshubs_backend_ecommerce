@@ -73,20 +73,14 @@ UserSchema.statics.get = async function ({ id, token }) {
 		.then(u => u)
 		.catch(e => { err: `User not found by id: ${id}` });
 
-	try {
-
-		if (!result) {
-			throw `User not found by id: ${id}`;
-		}
-		if (result.err) {
-			throw result.err;
-		}
-		
-		util.verifyAuthToken({ _id : result._id }, token);
-	} catch (e) {
-
-		throw { code: 401, err: e };
+	if (!result) {
+		throw { code : 412, err : `User not found by id: ${id}` };
 	}
+	if (result.err) {
+		throw { code : 400, err : result.err };
+	}
+	
+	util.verifyAuthToken({ _id : result._id }, token);
 
 	return result;
 }

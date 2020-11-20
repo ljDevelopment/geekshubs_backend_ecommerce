@@ -187,7 +187,8 @@ Retrieves the data of one user. To get the user data, the token provided must be
 ```
 
 **status**(400): Any parameter missing
-**status**(401): Token expired, insufficient permissions or user not found.
+**status**(401): Token expired, insufficient permissions.
+**status**(412): User not found.
 
 #### Update user data
 Changes the data of one user. To update the user data, the token provided must be from itself or from an admin.
@@ -195,7 +196,7 @@ Changes the data of one user. To update the user data, the token provided must b
 **PUT** /users/:id
 
 - [params] id: string (required)
-- [body | query | params]token: string (required)
+- [query]token: string (required)
 - [body] name: string (optional)
 - [body] email: string (optional)
 - [body] password: string (optional)
@@ -214,9 +215,90 @@ Changes the data of one user. To update the user data, the token provided must b
 ```
 
 **status**(400): Any parameter missing or wrong field provided to be updated.
-**status**(401): Token expired, insufficient permissions or user not found.
+**status**(401): Token expired, insufficient permissions.
+**status**(412): User not found.
 
 ### Product endpoints
 *[routes/products.js](routes/products.js)*
+#### Create product
+Creates a new product. Default role if not provided is 'user'. If ok, returns the data of the new user created.
+
+**POST** /products/
+
+- [body] name: string (required)
+- [body] email: string (required)
+- [body] password: string (required)
+- [body] role: string (default 'user')
+
+**status**(200): Ok
+```json
+{
+    "_id": "5fb538e0743ba8f96868be5e",
+    "name": "Bordertown",
+    "category": "Health",
+    "price": 308.64,
+    "vendor": "5fb538e0743ba8f96868be5c",
+    "createdAt": "2020-11-18T15:08:16.861Z",
+    "updatedAt": "2020-11-18T15:08:16.861Z",
+    "__v": 0
+}
+```
+**status**(400): Any parameter missing or wrong role.
+**status**(412): Duplicated email
+
+#### Delete product
+Deletes de product with the given id. Only admin or the vendor of the product can delete the product. If the product is removed ok, it is returned.
+
+**DELETE** /products/:id
+
+- [body | query | params] id: string (required)
+- [body | query | params] token: string (required)
+
+**status**(200): Ok
+```json
+{
+    "_id": "5fb538e0743ba8f96868be5e",
+    "name": "Bordertown",
+    "category": "Health",
+    "price": 308.64,
+    "vendor": "5fb538e0743ba8f96868be5c",
+    "createdAt": "2020-11-18T15:08:16.861Z",
+    "updatedAt": "2020-11-18T15:08:16.861Z",
+    "__v": 0
+}
+```
+**status**(400): Any parameter missing.
+**status**(401): Token expired, insufficient permissions or user not found.
+**status**(412): No product found.
+
+#### Update product data
+Changes the data of one product. To update the product data, the token provided must be from its vendor or from an admin.
+
+**PUT** /products/:id
+
+- [body | query | params]  id: string (required)
+- [query] token: string (required)
+- [body] name: string (optional)
+- [body] category: string (optional)
+- [body] float: number (optional)
+
+**status**(200): Ok
+```json
+{
+    "_id": "5fb7fabc743ba8f96868bf24",
+    "name": "newName",
+    "category": "newCategory",
+    "price": 1.1,
+    "vendor": "5fb7fabc743ba8f96868bf20",
+    "createdAt": "2020-11-20T17:19:56.620Z",
+    "updatedAt": "2020-11-20T17:20:05.031Z",
+    "__v": 3
+}
+```
+
+**status**(400): Any parameter missing or wrong field provided to be updated.
+**status**(401): Token expired, insufficient permissions.
+**status**(412): Product not found.
+
 ### Purchases endpoints
 *[routes/purchases.js](routes/purchases.js)*
