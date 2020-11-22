@@ -221,14 +221,15 @@ Changes the data of one user. To update the user data, the token provided must b
 ### Product endpoints
 *[routes/products.js](routes/products.js)*
 #### Create product
-Creates a new product. Default role if not provided is 'user'. If ok, returns the data of the new user created.
+Creates a new product. If ok, returns the data of the new product created.
 
 **POST** /products/
 
 - [body] name: string (required)
-- [body] email: string (required)
-- [body] password: string (required)
-- [body] role: string (default 'user')
+- [body] category: string (required)
+- [body] price: number (required)
+- [body] vendor: string (required)
+- [gody | query | params] token: string (required)
 
 **status**(200): Ok
 ```json
@@ -243,8 +244,8 @@ Creates a new product. Default role if not provided is 'user'. If ok, returns th
     "__v": 0
 }
 ```
-**status**(400): Any parameter missing or wrong role.
-**status**(412): Duplicated email
+**status**(400): Any parameter missing.
+**status**(401): Token expired, insufficient permissions.
 
 #### Delete product
 Deletes de product with the given id. Only admin or the vendor of the product can delete the product. If the product is removed ok, it is returned.
@@ -306,7 +307,7 @@ Get the list of products. Supports filtering and grouping by.
 **GET** /products/
 
 - [body | query | params]  groupBy: string (optional)
-- [body] fileter: <filter object> (optional)
+- [body] filter: <filter object> (optional)
 
 filter object:
 ```json
@@ -353,7 +354,99 @@ filter object:
     ]
 ]
 ```
-**status**(400): Filter error, number operator not supported.
+**status**(400): Filter error or number operator not supported.
 
 ### Purchases endpoints
 *[routes/purchases.js](routes/purchases.js)*
+
+#### Create purchase
+Creates a new purchase. If ok, returns the data of the new purchase. It doesn't store a reference to the product because we are saving the current purchase, just in case that product will change in the future. Only role user or admin can create purchases.
+
+**POST** /purchases/
+
+- [body] name: string (required)
+- [body] category: string (required)
+- [body] price: number (required)
+- [body] buyer: string (required) (ref to user id)
+- [body] vendor: string (required) (ref to user id)
+- [body | query | params] token: string (required)
+
+**status**(200): Ok
+```json
+{
+    "_id": "5fba527d9847923134d998c6",
+    "name": "Beauty and the Boss",
+    "category": "Health",
+    "price": 1199.19,
+    "buyer": "5fba52799847923134d998a8",
+    "vendor": "5fba527a9847923134d998ac",
+    "createdAt": "2020-11-22T11:58:53.961Z",
+    "updatedAt": "2020-11-22T11:58:53.961Z",
+    "__v": 0
+}
+```
+
+**status**(400): Any parameter missing.
+**status**(401): Token expired, insufficient permissions.
+
+#### Get purchases
+Get the list of purchases. Supports filtering and grouping by. An user only can get its purchases, and a vendor only can get the purchases of its products.
+
+**GET** /purchases/
+
+- [body | query | params]  token: string (required)
+- [body | query | params]  groupBy: string (optional)
+- [body] filter: <filter object> (optional)
+
+filter object:
+```json
+{
+	"<text_field_name>" : "<regular_expression>",
+	"<number_field_name>" : { "op" : "= | != | < | <= | > | >= | in | nin", "value" : "<number>"
+}
+```
+
+**status**(200): Ok
+```json
+[{
+    "_id": "5fba527d9847923134d998c2",
+    "name": "Bordertown",
+    "category": "Health",
+    "price": 308.64,
+    "buyer": "5fba52799847923134d998a8",
+    "vendor": "5fba527a9847923134d998ac",
+    "createdAt": "2020-11-22T11:58:53.628Z",
+    "updatedAt": "2020-11-22T11:58:53.628Z",
+    "__v": 0
+},
+...
+]
+```
+(grouped by)
+```json
+[{
+    "_id": "Jewelery",
+    "elements": [{
+        "_id": "5fba527f9847923134d998d4",
+        "name": "Silvestre",
+        "category": "Jewelery",
+        "price": 228.52,
+        "buyer": "5fba52799847923134d998a8",
+        "vendor": "5fba527a9847923134d998ac",
+        "createdAt": "2020-11-22T11:58:55.195Z",
+        "updatedAt": "2020-11-22T11:58:55.195Z",
+        "__v": 0
+    },
+    ...
+    ]
+}, {
+    "_id": "Shoes",
+    "elements": [
+    ...
+    ]
+    },
+    ...
+]
+```
+**status**(400): Filter error or number operator not supported.
+**status**(401): Token expired.

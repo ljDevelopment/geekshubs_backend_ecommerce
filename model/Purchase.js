@@ -114,8 +114,9 @@ PurchaseSchema.statics.list = async function (token, filters, groupBy) {
 			throw `Unknown role ${payload.role}`;
 	}
 
+	filters = filters || {};
 	if (field) {
-		filter[field] = new mongoose.Types.ObjectId(payload._id);
+		filters[field] = new mongoose.Types.ObjectId(payload._id);
 	}
 
 	const aggregation = util.buildDbAggregation(filters, groupBy);
