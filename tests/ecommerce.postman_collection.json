@@ -521,7 +521,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"price\" : { \"op\" : \"=\", \"value\" : \"1199.19\" }\n}",
+							"raw": "{\n    \"price\" : { \"op\" : \"<=\", \"value\" : \"100\" }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2200,7 +2200,7 @@
 									"    const responseJson = pm.response.json();",
 									"",
 									"    for (let category of responseJson) {",
-									"        for (let p of category.purchases) {",
+									"        for (let p of category.elements) {",
 									"            pm.expect(p.category).to.eql(category._id);",
 									"            pm.expect(purchasesIds).to.include(p._id);",
 									"            purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
@@ -2284,7 +2284,7 @@
 									"    const responseJson = pm.response.json();",
 									"",
 									"    for (let buyer of responseJson) {",
-									"        for (let p of buyer.purchases) {",
+									"        for (let p of buyer.elements) {",
 									"            ",
 									"            pm.expect(p.buyer).to.eql(buyer._id);",
 									"            pm.expect(purchasesIds).to.include(p._id);",
@@ -4938,7 +4938,7 @@
 									"    const responseJson = pm.response.json();",
 									"",
 									"    for (let category of responseJson) {",
-									"        for (let p of category.products) {",
+									"        for (let p of category.elements) {",
 									"            ",
 									"            pm.expect(p.category).to.eql(category._id);",
 									"            pm.expect(productsIds).to.include(p._id);",
@@ -5017,7 +5017,7 @@
 									"    const responseJson = pm.response.json();",
 									"",
 									"    for (let vendor of responseJson) {",
-									"        for (let p of vendor.products) {",
+									"        for (let p of vendor.elements) {",
 									"            ",
 									"            pm.expect(p.vendor).to.eql(vendor._id);",
 									"            pm.expect(productsIds).to.include(p._id);",

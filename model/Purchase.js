@@ -118,64 +118,8 @@ PurchaseSchema.statics.list = async function (token, filters, groupBy) {
 		filter[field] = new mongoose.Types.ObjectId(payload._id);
 	}
 
-	try {
-		if (filters.price) {
-
-			switch (filters.price.op) {
-				case '=':
-					filter = { price: { $eq: filters.price.value } };
-					break;
-				case '!=':
-					filter = { price: { $ne: filters.price.value } };
-					break;
-				case '>':
-					filter = { price: { $gt: filters.price.value } };
-					break;
-				case '>=':
-					filter = { price: { $gte: filters.price.value } };
-					break;
-				case '<':
-					filter = { price: { $lt: filters.price.value } };
-					break;
-				case '<=':
-					filter = { price: { $lte: filters.price.value } };
-					break;
-				case 'in':
-					filter = { price: { $in: filters.price.value } };
-					break;
-				case 'nin':
-					filter = { price: { $nin: filters.price.value } };
-					break;
-				default:
-					throw `Unknown op ${filters.price.op}`;
-			}
-		}
-
-		if (filters.name) {
-
-			filter.name = new RegExp(filters.name, 'i');
-		}
-	} catch (e) {
-		throw { err: e };
-	}
-
-	const aggregation = [{ $match: filter }];
-	if (groupBy) {
-
-		aggregation.push(
-			{
-				$group:
-				{
-					_id: '$' + groupBy,
-					purchases: { $push: "$$ROOT" }
-				}
-			}
-		);
-	}
-
-
-	let purchase = await Purchase
-		.aggregate(aggregation);
+	const aggregation = util.buildDbAggregation(filters, groupBy);
+	let purchase = await Purchase.aggregate(aggregation);
 
 	if (groupBy && purchase.length == 1 && !purchase[0]._id) {
 		throw { code: 400, err: `Unknown group by field ${groupBy}` };

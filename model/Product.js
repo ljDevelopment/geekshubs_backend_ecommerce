@@ -40,11 +40,11 @@ async function get(id) {
 		.catch(e => { err: `Product not found by id: ${id}` });
 
 	if (!result) {
-		throw { code: 412, err : `Product not found by id: ${id}` };
+		throw { code: 412, err: `Product not found by id: ${id}` };
 	}
 
 	if (result.err) {
-		throw { code: 400, err : result.err };
+		throw { code: 400, err: result.err };
 	}
 
 	return result;
@@ -94,67 +94,11 @@ ProductSchema.statics.updateById = async function (data) {
 
 ProductSchema.statics.list = async function (filters, groupBy) {
 
-	let filter = {};
-
-	try {
-		if (filters.price) {
-
-			switch (filters.price.op) {
-				case '=':
-					filter = { price: { $eq: filters.price.value } };
-					break;
-				case '!=':
-					filter = { price: { $ne: filters.price.value } };
-					break;
-				case '>':
-					filter = { price: { $gt: filters.price.value } };
-					break;
-				case '>=':
-					filter = { price: { $gte: filters.price.value } };
-					break;
-				case '<':
-					filter = { price: { $lt: filters.price.value } };
-					break;
-				case '<=':
-					filter = { price: { $lte: filters.price.value } };
-					break;
-				case 'in':
-					filter = { price: { $in: filters.price.value } };
-					break;
-				case 'nin':
-					filter = { price: { $nin: filters.price.value } };
-					break;
-				default:
-					throw `Unknown op ${filters.price.op}`;
-			}
-		}
-
-		if (filters.name) {
-
-			filter.name = new RegExp(filters.name, 'i');
-		}
-	} catch (e) {
-		throw { err : e };
-	}
-
-	const aggregation = [{ $match : filter}];
-	if (groupBy) {
-
-		aggregation.push(
-			{ $group: 
-				{
-					_id : '$' + groupBy,
-					products : { $push: "$$ROOT" }
-				}
-			}
-		);
-	}
-
-	
+	const aggregation = util.buildDbAggregation(filters, groupBy);
 	let products = await Product.aggregate(aggregation);
-	
+
 	if (groupBy && products.length == 1 && !products[0]._id) {
-		throw { code : 400, err : `Unknown group by field ${groupBy}`};
+		throw { code: 400, err: `Unknown group by field ${groupBy}` };
 	}
 
 	return products;
