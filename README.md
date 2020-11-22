@@ -18,12 +18,12 @@
 	1. [How to install](#how-to-install)
 	2. [How to run](#how-to-run)
 	3. [How to run unit tests](#how-to-run-unit-tests)
-2. Requirements
-3. DB
-4. Backend endpoints
-	1. User endpoints
-	2. Product endpoints
-	3. Purchase endpoints
+2. [Requirements](#requirements)
+3. [DB](#db)
+4. [Backend endpoints](#backend-endpoints)
+	1. [User endpoints](#user-endpoints)
+	2. [Product endpoints](#product-endpoints)
+	3. [Purchase endpoints](#purchase-endpoints)
 
 ## How to...
 ### How to install
@@ -113,6 +113,9 @@ const PurchaseSchema = new mongoose.Schema({
 ```
 
 ## Backend endpoints
+
+'token' used in requests is the one provided to the requester when login. It is used to validate request and permissions of the requester.
+
 ### User endpoints
 *[routes/users.js](routes/users.js)*
 #### User signup
@@ -229,7 +232,7 @@ Creates a new product. If ok, returns the data of the new product created.
 - [body] category: string (required)
 - [body] price: number (required)
 - [body] vendor: string (required)
-- [gody | query | params] token: string (required)
+- [body | query | params] token: string (required)
 
 **status**(200): Ok
 ```json
