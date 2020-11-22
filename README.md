@@ -300,5 +300,60 @@ Changes the data of one product. To update the product data, the token provided 
 **status**(401): Token expired, insufficient permissions.
 **status**(412): Product not found.
 
+#### Get products
+Get the list of products. Supports filtering and grouping by.
+
+**GET** /products/
+
+- [body | query | params]  groupBy: string (optional)
+- [body] fileter: <filter object> (optional)
+
+filter object:
+```json
+{
+	"<text_field_name>" : "<regular_expression>",
+	"<number_field_name>" : { "op" : "= | != | < | <= | > | >= | in | nin", "value" : "<number>"
+}
+```
+
+**status**(200): Ok
+```json
+[{
+    "_id": "5fba527b9847923134d998b0",
+    "name": "Edge of Darkness",
+    "category": "Automotive",
+    "price": 865.56,
+    "vendor": "5fba527a9847923134d998ac",
+    "createdAt": "2020-11-22T11:58:51.090Z",
+    "updatedAt": "2020-11-22T11:58:51.090Z",
+    "__v": 0
+},
+...
+]
+```
+(grouped by)
+```json
+{
+    "_id": "Sports",
+    "elements": [{
+        "_id": "5fba527c9847923134d998bc",
+        "name": "Something New",
+        "category": "Sports",
+        "price": 863.13,
+        "vendor": "5fba527a9847923134d998ac",
+        "createdAt": "2020-11-22T11:58:52.796Z",
+        "updatedAt": "2020-11-22T11:58:52.796Z",
+        "__v": 0
+    },
+    ...]
+}, {
+    "_id": "Automotive",
+    "elements": [
+	    ...
+    ]
+]
+```
+**status**(400): Filter error, number operator not supported.
+
 ### Purchases endpoints
 *[routes/purchases.js](routes/purchases.js)*
