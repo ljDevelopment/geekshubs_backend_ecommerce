@@ -6,7 +6,7 @@
  - **Technologies**: [NodeJS](https://nodejs.dev/), [Express](https://expressjs.com/), [MongoDB](https://www.mongodb.com/), [Mongoose](https://mongoosejs.com/), [Postman](https://www.postman.com/)
  - **Abstract**: Final challenge for the course *2020-09- Backend Express* at [GeeksHubs](https://geekshubs.com/). Description for the requirements of the challenge can be found in [Reto Final Backend E-Commerce - BTC Backend.pdf](Reto%20Final%20Backend%20E-Commerce%20-%20BTC%20Backend.pdf).
 
-### To evaluate
+### Evaluation notes
 - All requirements fulfilled, including extras.
 - MVC architecture.
 - Important config data hidden in environment variables using [dotenv](https://www.npmjs.com/package/dotenv).
@@ -18,7 +18,7 @@
 	1. [How to install](#how-to-install)
 	2. [How to run](#how-to-run)
 	3. [How to run unit tests](#how-to-run-unit-tests)
-2. [Requirements](#requirements)
+2. [Implemented requirements](#implemented-requirements)
 3. [DB](#db)
 4. [Backend endpoints](#backend-endpoints)
 	1. [User endpoints](#user-endpoints)
@@ -35,7 +35,7 @@
 	- PORT: listening port (3000 will be used if not set).
 	- MONGODB_URL: url of the [MongoDB](https://www.mongodb.com/) to be used.
 	- ENV: environment identifier (if equals to 'dev', tests end points will be enabled).
-	- JWT_SECRET: private key used to generate auth [tokens](#token-authentication).
+	- JWT_SECRET: private key used to generate auth [tokens](#backend-endpoints).
 2. Command line:
 	1. Production: `npm start` --> `node -r dotenv/config ./bin/www`
 	2. Development: `npm run dev` --> `nodemon -r dotenv/config ./bin/www` (if you have nodemon package installed as dev)
@@ -46,7 +46,7 @@
 4. Select the folder *tests*.
 5. In *Data*, select the file *tests/data.csv*.
 6. Launch the tests with the button *run*.
-## Requirements
+## Implemented requirements
 -  **Users**: Token authentication
 -  **Users**: Login
 -  **Users**: Signup
