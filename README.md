@@ -281,7 +281,7 @@ Changes the data of one product. To update the product data, the token provided 
 - [query] token: string (required)
 - [body] name: string (optional)
 - [body] category: string (optional)
-- [body] float: number (optional)
+- [body] price: number (optional)
 
 **status**(200): Ok
 ```json
@@ -450,3 +450,32 @@ filter object:
 ```
 **status**(400): Filter error or number operator not supported.
 **status**(401): Token expired.
+
+#### Update purchase data
+Changes the data of one purchase. To update the product data, the token provided must be from its vendor or from an admin.
+
+**PUT** /purchase/:id
+
+- [body | query | params]  id: string (required)
+- [query] token: string (required)
+- [body] name: string (optional)
+- [body] category: string (optional)
+- [body] price: number (optional)
+
+**status**(200): Ok
+```json
+{
+    "_id": "5fb7fabc743ba8f96868bf24",
+    "name": "newName",
+    "category": "newCategory",
+    "price": 1.1,
+    "vendor": "5fb7fabc743ba8f96868bf20",
+    "createdAt": "2020-11-20T17:19:56.620Z",
+    "updatedAt": "2020-11-20T17:20:05.031Z",
+    "__v": 3
+}
+```
+
+**status**(400): Any parameter missing or wrong field provided to be updated.
+**status**(401): Token expired, insufficient permissions.
+**status**(412): Purchase not found.
