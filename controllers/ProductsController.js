@@ -34,9 +34,9 @@ ProductsController.modify = (req, res, next) => {
 
 	const { id } = req.params;
 	const { body } = req;	
-	const { query } = req;
+	const token = util.getFieldFromRequest(req, 'token');
 
-	Product.updateById({ id : id, ...body, ...query })
+	Product.updateById({ id : id, ...body, token })
 		.then(u => res.json(u))
 		.catch(err => res.status(err.code || 400).json({err : err}));	
 }

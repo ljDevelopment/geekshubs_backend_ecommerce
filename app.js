@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var jwt = require('express-jwt');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,6 +22,36 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(jwt({
+	secret: process.env.JWT_SECRET,
+	algorithms: ['sha1', 'RS256', 'HS256'],
+	credentialsRequired: false,
+	requestProperty: 'token',
+
+	// isRevoked: function(req, payload, done){
+
+	// 	if (Date.now() > payload.iat) {
+	// 		return done({ name : 'Unauthorized expired'});
+	// 	}
+	// 	return done(null, !!token);
+	//   },
+	
+	getToken: function fromHeaderOrQuerystring (req) {
+	  if (req.headers.token && req.headers.token.split(' ')[0] === 'Bearer') {
+		  return req.headers.token.split(' ')[1];
+	  } else if (req.query && req.query.token) {
+		return req.query.token;
+	  }
+	  return null;
+	}
+  }));
+
+  app.use(function (err, req, res, next) {
+	if (err && err.name && err.name.includes('Unauthorized')) {
+	  return res.status(401).json({err : err.name });
+	}
+	next(req, res);
+  });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

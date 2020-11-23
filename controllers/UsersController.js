@@ -52,10 +52,10 @@ UsersController.getData = (req, res, next) => {
 UsersController.update = (req, res, next) => {
 
 	const { id } = req.params;
-	const { body } = req;	
-	const { query } = req;
+	const { body } = req;
+	const token = util.getFieldFromRequest(req, 'token');
 
-	User.updateById({ id : id, ...body, ...query })
+	User.updateById({ id : id, ...body, token })
 		.then(u => res.json(u))
 		.catch(err => res.status(err.code ? err.code : 401).json({err : err}));	
 }

@@ -24,9 +24,9 @@ PurchasesController.modify = (req, res, next) => {
 
 	const { id } = req.params;
 	const { body } = req;	
-	const { query } = req;
+	const token = util.getFieldFromRequest(req, 'token');
 
-	Purchase.updateById({ id : id, ...body, ...query })
+	Purchase.updateById({ id : id, ...body, token})
 		.then(u => res.json(u))
 		.catch(err => res.status(err.code || 400).json({err : err}));	
 }

@@ -25,10 +25,9 @@ function generateAuthToken({ _id, role }) {
 	return token;
 }
 
-function verifyAuthToken({ _id, role }, token) {
+function verifyAuthToken({ _id, role }, payload) {
 
 	try {
-		const payload = jwt.verify(token, process.env.JWT_SECRET);
 
 		if (role && payload.role == roles.admin) {
 			return payload;
@@ -73,7 +72,8 @@ function verifyAuthToken({ _id, role }, token) {
 
 function getFieldFromRequest(req, field) {
 
-	let value = (req.params && req.params[field])
+	let value =  (req[field])
+		|| (req.params && req.params[field])
 		|| (req.body && req.body[field])
 		|| (req.query && req.query[field]);
 	return value;
