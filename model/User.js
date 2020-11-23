@@ -30,6 +30,10 @@ UserSchema.statics.new = async function (data) {
 
 		delete data.role;
 	} 
+	if (process.env.ENV !== 'dev') {
+		// User cretion with role != user only allowed in development
+		delete data.role;	
+	}
 
 	const result = await User.create(data)
 		.then(u => u)

@@ -27,14 +27,6 @@ app.use(jwt({
 	algorithms: ['sha1', 'RS256', 'HS256'],
 	credentialsRequired: false,
 	requestProperty: 'token',
-
-	// isRevoked: function(req, payload, done){
-
-	// 	if (Date.now() > payload.iat) {
-	// 		return done({ name : 'Unauthorized expired'});
-	// 	}
-	// 	return done(null, !!token);
-	//   },
 	
 	getToken: function fromHeaderOrQuerystring (req) {
 	  if (req.headers.token && req.headers.token.split(' ')[0] === 'Bearer') {
@@ -71,7 +63,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = process.env.ENV === 'dev' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
