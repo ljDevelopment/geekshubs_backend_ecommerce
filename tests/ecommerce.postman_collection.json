@@ -1,0 +1,5532 @@
+{
+	"info": {
+		"_postman_id": "42818a7c-bf69-4689-81f6-43b845c1231a",
+		"name": "ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "users_signup_default",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"luis\",\n    \"email\" : \"luis@emil.com\",\n    \"password\" : \"mypasswrod\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users_signup_default_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a960ef1-5087-4e0d-9340-521e15dddf98",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"admin\",\n    \"email\" : \"admin@emil.com\",\n    \"password\" : \"mypasswrod\",\n    \"role\" : \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users_signup_default_wrong_role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9578876-eb2b-4706-814e-ffc1620284b2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"wrongrole\",\n    \"email\" : \"wrongrole@emil.com\",\n    \"password\" : \"mypasswrod\",\n    \"role\" : \"wrong\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users_login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"luis@emil.com\",\n    \"password\" : \"mypasswrod\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users_get_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e1934f7-3a57-4fc9-aa87-7056710d4030",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "062dbace-f6b7-4562-b5cb-111e70828d3b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5fae6c3f9ae088300c823b02?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFlNmMzZjlhZTA4ODMwMGM4MjNiMDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyNjY0OTV9.FQHDmUTXTi3nn27_EYLbwGkExZi-_unUAkxiIS-EOW0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5fae6c3f9ae088300c823b02"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFlNmMzZjlhZTA4ODMwMGM4MjNiMDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyNjY0OTV9.FQHDmUTXTi3nn27_EYLbwGkExZi-_unUAkxiIS-EOW0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users_update_name",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"newNameRequested\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5fad7a77f8a58d00db304d80?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkN2E3N2Y4YTU4ZDAwZGIzMDRkODIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyMDQ1OTl9.QcxZ_ptn8d0f-aALhdH3Tq2J87EtQZ-mgmE7BVTRIgc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5fad7a77f8a58d00db304d80"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFkN2E3N2Y4YTU4ZDAwZGIzMDRkODIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDUyMDQ1OTl9.QcxZ_ptn8d0f-aALhdH3Tq2J87EtQZ-mgmE7BVTRIgc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users_update_email",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"newEmail\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5faa77f0378c53c4c97daaa8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5faa77f0378c53c4c97daaa8"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "product_create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2a9e6837-40ef-4983-be3d-a781c536f7b5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"product\",\n    \"category\" : \"category\",\n    \"price\" : \"1.01\",\n    \"vendor\" : \"5fabc4b0f721bd29d25c5238\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFlNjkyNDhmMzlkNzJkMmU3NDQzYzEiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MjY1NzAwfQ.mVJNFV1zNdXXFIvMe38mxVZATvqCRh_d_hgJX12_R70",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFlNjkyNDhmMzlkNzJkMmU3NDQzYzEiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MjY1NzAwfQ.mVJNFV1zNdXXFIvMe38mxVZATvqCRh_d_hgJX12_R70"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_update_name",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"newName\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/5faf1a2640027658c335dd73?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmMWEyNjQwMDI3NjU4YzMzNWRkNmYiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzExMDE0fQ.QH_JKK7LQODeRu3k5SIZIOAd6KvAtU0N_-w-cNXfpwI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"5faf1a2640027658c335dd73"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmMWEyNjQwMDI3NjU4YzMzNWRkNmYiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzExMDE0fQ.QH_JKK7LQODeRu3k5SIZIOAd6KvAtU0N_-w-cNXfpwI"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_update_price",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : \"noname\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/5fafa011deb3cc5baf1b8406?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmYTAwYWRlYjNjYzViYWYxYjg0MDIiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzQ1Mjk0fQ.mYX6PBZU6ihLRBj7AADw0bfZTdTR97rm4bIobF9dQGA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"5fafa011deb3cc5baf1b8406"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmYTAwYWRlYjNjYzViYWYxYjg0MDIiLCJyb2xlIjoidmVuZG9yIiwiaWF0IjoxNjA1MzQ1Mjk0fQ.mYX6PBZU6ihLRBj7AADw0bfZTdTR97rm4bIobF9dQGA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_get_all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/products?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmYTIwNWRlYjNjYzViYWYxYjg0NmMiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTM0NTc5N30.EV8Bk1BsGylZ5zrfpkPNCZPg6W-buXWLp5C4MLhtSsE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFmYTIwNWRlYjNjYzViYWYxYjg0NmMiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTM0NTc5N30.EV8Bk1BsGylZ5zrfpkPNCZPg6W-buXWLp5C4MLhtSsE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_get_all_byname",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"be\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_get_all_byname_groupByCategory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"be\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?groupBy=category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_get_all_byprice",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \"<=\", \"value\" : \"100\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "purchases",
+			"item": [
+				{
+					"name": "purchase_crete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Bordertown\",\n    \"category\" : \"Health\",\n    \"price\" : \"308.64\",\n    \"vendor\" : \"5fb14334231e29ae6e36ec54\",\n    \"buyer\" : \"5fb14334231e29ae6e36ec50\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmIxNDMzNDIzMWUyOWFlNmUzNmVjNTAiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTQ1MjU5Nn0.otBM1LkLkgrrmt7L8Kz4HT4-uYxKRPdu9IVYvPneqIs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmIxNDMzNDIzMWUyOWFlNmUzNmVjNTAiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTQ1MjU5Nn0.otBM1LkLkgrrmt7L8Kz4HT4-uYxKRPdu9IVYvPneqIs"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "purchase_get_all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "purchase_get_all_filtered_by_name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \".*ar.*\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmIxYTNlZjQ3ZjViYWMwMWZiZjA5NzAiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTQ3NzM1OX0.5Mv8pfODhupP2Gi9B8XK_mRSS6x-UROzrqo_7emUGBk&groupBy=category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmIxYTNlZjQ3ZjViYWMwMWZiZjA5NzAiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwNTQ3NzM1OX0.5Mv8pfODhupP2Gi9B8XK_mRSS6x-UROzrqo_7emUGBk"
+								},
+								{
+									"key": "groupBy",
+									"value": "category"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "tests",
+			"item": [
+				{
+					"name": "tests_start",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "aeacc753-7264-470c-8c37-8db9e13b2faf",
+								"exec": [
+									"",
+									"let isFirst = pm.info.iteration == 0;",
+									"let isLast = pm.info.iteration == (pm.info.iterationCount - 1);",
+									"",
+									"let next = 'tests_cleanUsers';",
+									"",
+									"if (!isFirst) {",
+									"    if (isLast){",
+									"        ",
+									"        next = 'tests_purchase';",
+									"    }",
+									"    else {",
+									"",
+									"        switch (pm.iterationData.get('collection'))",
+									"        {",
+									"            case 'user':",
+									"                next = 'tests_users_signup_200';",
+									"            break;",
+									"            case 'product':",
+									"                next = 'tests_product_create';",
+									"            break;",
+									"        }",
+									"    }",
+									"    ",
+									"}",
+									"",
+									"console.log('start -> ' + next);",
+									"postman.setNextRequest(next);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e87f4c5-7a34-433e-9563-12d91997cefb",
+								"exec": [
+									"pm.test(\"Start\", function() {",
+									"    // TRUE",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/tests",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_cleanUsers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "01efd38a-9eea-4416-9973-b08f9901e7c0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/tests/cleanUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tests",
+								"cleanUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_cleanProducts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e6c488c1-505c-4458-b21c-c00402ca3603",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/tests/cleanProducts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tests",
+								"cleanProducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_cleanPurchases",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e689c74-f67f-4716-a94c-dfb85827133f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/tests/cleanPurchases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tests",
+								"cleanPurchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup ok status (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"  pm.test(\"Signup ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    ",
+									"    const expectedRole = pm.iterationData.get('role') || 'user';",
+									"    pm.expect(responseJson.role).to.eql(expectedRole);",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\",\n    \"role\" : \"{{role}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_login_ok",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									"pm.test(\"Users login ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Users login ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    ",
+									"    pm.environment.set(responseJson.role, responseJson);",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup ok (412)\", function() {",
+									"    pm.response.to.have.status(412);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_iteration_break",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f0567695-1fb4-4fa3-9998-4929c05ecf9e",
+								"exec": [
+									"",
+									"postman.setNextRequest(null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "70abdcda-9d67-4dcb-975b-76af6b44364f",
+								"exec": [
+									" pm.test(\"Create product ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"  pm.test(\"Create product ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    const products = pm.environment.get('products') || [];",
+									"    products.push(responseJson);",
+									"    pm.environment.set('products', products);",
+									"",
+									"    const vendor = pm.environment.get('vendor');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(pm.iterationData.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(pm.iterationData.get('price'));",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5eb3f799-ee2e-44a2-8dff-507bc5ab3973",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('vendorId', vendor._id);",
+									"pm.variables.set('token', vendor.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_create_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6907a8df-d0d0-4551-8cd8-af0f3f4d0238",
+								"exec": [
+									" pm.test(\"Create product ok admin status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"  pm.test(\"Create product ok admin data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    const products = pm.environment.get('products') || [];",
+									"    products.push(responseJson);",
+									"    pm.environment.set('products', products);",
+									"",
+									"    const vendor = pm.environment.get('vendor');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.iterationData.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(pm.iterationData.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(pm.iterationData.get('price'));",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "652aafdc-683d-434a-9293-1c5051c7620c",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const admin = pm.environment.get('admin');",
+									"pm.variables.set('vendorId', vendor._id);",
+									"pm.variables.set('token', admin.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_create_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfff8ba0-dc6c-4cb8-88ab-bacf44b766ce",
+								"exec": [
+									" pm.test(\"Create product ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5619f435-05be-4678-8fce-c927b2c5a405",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('vendorId', vendor._id);",
+									"pm.variables.set('token', user.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_create_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "27230d85-a961-481b-b4b8-35a7a05048c8",
+								"exec": [
+									" pm.test(\"Create product ko id status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "03121579-eed9-442f-9046-d1dd3c8462e4",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('vendorId', user._id);",
+									"pm.variables.set('token', vendor.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_iteration_break",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ac15465-6a21-4651-ac66-c839c092defe",
+								"exec": [
+									"",
+									"postman.setNextRequest(null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "031d9fee-85f0-4779-9244-da8b1cc407f8",
+								"exec": [
+									" pm.test(\"Create purchase ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"  pm.test(\"Create purchase ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    const purchases = pm.environment.get('purchases') || [];",
+									"    purchases.push(responseJson);",
+									"    pm.environment.set('purchases', purchases);",
+									"",
+									"    const vendor = pm.environment.get('vendor');",
+									"    const user = pm.environment.get('user');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.variables.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(pm.variables.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(pm.variables.get('price'));",
+									"    pm.expect(responseJson.buyer).to.eql(user._id);",
+									"    pm.expect(responseJson.vendor).to.eql(vendor._id);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ab8fe35a-a665-4504-8cf1-1862e13cfd96",
+								"exec": [
+									"",
+									"let index = pm.environment.get('purchaseIndex') || 0;",
+									"",
+									"const user = pm.environment.get('user');",
+									"const products = pm.environment.get('products');",
+									"const product = products[index];",
+									"",
+									"pm.variables.set('name', product.name);",
+									"pm.variables.set('category', product.category);",
+									"pm.variables.set('price', product.price);",
+									"pm.variables.set('buyerId', user._id);",
+									"pm.variables.set('vendorId', product.vendor);",
+									"pm.variables.set('token', user.token);",
+									"",
+									"++index;",
+									"if (index < products.length) {",
+									"    pm.environment.set('purchaseIndex', index); ",
+									"    postman.setNextRequest('tests_purchase');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\",\n    \"category\" : \"{{category}}\",\n    \"price\" : \"{{price}}\",\n    \"buyer\" : \"{{buyerId}}\",\n    \"vendor\" : \"{{vendorId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase_get_from_user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5be2ef79-b7ea-489a-b717-f87e589e1757",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get ok data\", function() {",
+									"",
+									"    const purchases = pm.environment.get('purchases');",
+									"    let purchasesIds = purchases.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(purchasesIds).to.include(p._id);",
+									"        purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
+									"    }",
+									"    pm.expect(purchasesIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6d1416be-dadf-4a06-b90c-d53c8f031755",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase_get_from_vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac003bb2-3239-4a5c-a109-7dc53b3cbd0e",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get ok data\", function() {",
+									"",
+									"    const purchases = pm.environment.get('purchases');",
+									"    let purchasesIds = purchases.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(purchasesIds).to.include(p._id);",
+									"        purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
+									"    }",
+									"    pm.expect(purchasesIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9143fd82-4239-45f5-b83d-44246dec2794",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('token', vendor.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase_get_from_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36283938-c561-4bfa-a182-4985e85ac2e0",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get ok data\", function() {",
+									"",
+									"    const purchases = pm.environment.get('purchases');",
+									"    let purchasesIds = purchases.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(purchasesIds).to.include(p._id);",
+									"        purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
+									"    }",
+									"    pm.expect(purchasesIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2797b6ff-8c0c-459e-a3cc-a502c1d2280d",
+								"exec": [
+									"const admin = pm.environment.get('admin');",
+									"pm.variables.set('token', admin.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchase_get_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c1b0a8-fac4-4efa-aca4-ed76542ac27e",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d24c9fe0-0074-4cb6-a5cb-2c32fb8ea303",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token=fakeToken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "fakeToken"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_filtered_name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a227670a-a6f3-4ebe-adb9-1ef31ee4e637",
+								"exec": [
+									"pm.test(\"Purchases get filetered name ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Purchases get fileterd name ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.name).to.contain(pm.variables.get('name'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "078f1847-bc5b-4c7d-a8a8-c837b0304617",
+								"exec": [
+									"",
+									"pm.variables.set('name', 'ar');",
+									"",
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \".*{{name}}.*\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_filtered_price_eq",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "985a713c-7159-4304-b4da-5ef225f6c1ae",
+								"exec": [
+									"pm.test(\"Purchases get fileted price eq ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Purchases get filtered price eq ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.eq(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "30081c1a-b442-4322-8d9f-0f8b698bb0a7",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);",
+									"",
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \"=\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_filtered_price_lt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "976b8743-559f-4557-9b08-729d71241f85",
+								"exec": [
+									"pm.test(\"Purchases get fileted price lt ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Purchases get filtered price lt ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.lt(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "83c6d817-b4a2-4a1a-87ae-7c5135c4f309",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);",
+									"",
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \"<\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_filtered_price_lte",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1978d9fb-6947-43a7-8451-6605aa04b775",
+								"exec": [
+									"pm.test(\"Purchases get fileted price lte ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Purchases get filtered price lte ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.lte(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "997b286e-191f-4ab8-b039-47c7b73c4031",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);",
+									"",
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \"<=\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_filtered_price_gt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f72533d9-bc5c-44a8-be02-a1ef01f926d6",
+								"exec": [
+									"pm.test(\"Purchases get fileted price gt ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Purchases get filtered price gt ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.gt(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b16c551b-26c0-42e7-a636-c7424d79ddfd",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);",
+									"",
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \">\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_filtered_price_gte",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8dc7201b-7355-41c2-a263-ab0b79cda8a6",
+								"exec": [
+									"pm.test(\"Purchases get fileted price gte ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Purchases get filtered price gte ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.gte(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2af3a42b-011a-4f23-89b2-177d3a76db2d",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);",
+									"",
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \">=\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_by_category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e2cc0f6b-85ba-42e6-9874-23f26510f642",
+								"exec": [
+									"pm.test(\"Purchases get by category ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Purchases get by category ok data\", function() {",
+									"",
+									"    const purchases = pm.environment.get('purchases');",
+									"    let purchasesIds = purchases.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let category of responseJson) {",
+									"        for (let p of category.elements) {",
+									"            pm.expect(p.category).to.eql(category._id);",
+									"            pm.expect(purchasesIds).to.include(p._id);",
+									"            purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
+									"        }",
+									"    }",
+									"    pm.expect(purchasesIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0cddbc01-a33a-4484-9fca-42e013b1ba86",
+								"exec": [
+									"",
+									"const user = pm.environment.get('user');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}&groupBy=category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "groupBy",
+									"value": "category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_by_buyer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8c167f2e-84e0-4775-a7c2-18cd49bc8de4",
+								"exec": [
+									"pm.test(\"Purchases get by buyer ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Purchases get by buyer ok data\", function() {",
+									"",
+									"    const purchases = pm.environment.get('purchases');",
+									"    let purchasesIds = purchases.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let buyer of responseJson) {",
+									"        for (let p of buyer.elements) {",
+									"            ",
+									"            pm.expect(p.buyer).to.eql(buyer._id);",
+									"            pm.expect(purchasesIds).to.include(p._id);",
+									"            purchasesIds = purchasesIds.filter((value, index, arr) => { return value != p._id;});",
+									"        }",
+									"    }",
+									"    pm.expect(purchasesIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "95cd79d4-aba5-4820-b469-a8ffc3111a88",
+								"exec": [
+									"",
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('token', vendor.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}&groupBy=buyer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "groupBy",
+									"value": "buyer"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_get_by_ko",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8291275b-6464-44ff-80e2-d91c80e41a33",
+								"exec": [
+									"pm.test(\"Products get by ko status\", function() {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c4f852e8-8fc3-41a2-a082-6b14f66389db",
+								"exec": [
+									"",
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('token', vendor.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases?token={{token}}&groupBy=wrongField",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "groupBy",
+									"value": "wrongField"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "62bb19d7-8233-4a94-91fd-62f457d48b50",
+								"exec": [
+									" pm.test(\"Update purchase name ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users purchase name ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const purchases = pm.environment.get('purchases');",
+									"    const purchase = purchases[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(pm.variables.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(purchase.category);",
+									"    pm.expect(responseJson.price).to.eql(purchase.price);",
+									"    pm.expect(responseJson.vendor).to.eql(purchase.vendor);",
+									"",
+									"    purchase.name = responseJson.name;",
+									"    purchases[0] = purchase;",
+									"    pm.environment.set('purchases', purchases);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2a32dcab-fe6f-4c38-b0ff-ecdf3ad2d00b",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_name_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "90c8d598-8001-4ab9-b7f6-205de294ff5c",
+								"exec": [
+									" pm.test(\"Update purchase name by admin ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users purchase name by admin ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const purchases = pm.environment.get('purchases');",
+									"    const purchase = purchases[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(pm.variables.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(purchase.category);",
+									"    pm.expect(responseJson.price).to.eql(purchase.price);",
+									"    pm.expect(responseJson.vendor).to.eql(purchase.vendor);",
+									"",
+									"    purchase.name = responseJson.name;",
+									"    purchases[0] = purchase;",
+									"    pm.environment.set('purchases', purchases);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fde4a14e-1d9b-4932-83bd-75406d28e9dd",
+								"exec": [
+									"const admin = pm.environment.get('admin');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', admin.token);",
+									"pm.variables.set('name', 'newNameByAdmin');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0dc1d65f-e461-4107-9165-35178bc4c038",
+								"exec": [
+									" pm.test(\"Update purchase price ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users purchase price ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const purchases = pm.environment.get('purchases');",
+									"    const purchase = purchases[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(purchase.name);",
+									"    pm.expect(responseJson.category).to.eql(purchase.category);",
+									"    pm.expect(responseJson.price).to.eql(pm.variables.get('price'));",
+									"    pm.expect(responseJson.vendor).to.eql(purchase.vendor);",
+									"",
+									"    purchase.price = responseJson.price;",
+									"    purchases[0] = purchase;",
+									"    pm.environment.set('purchases', purchases);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "10cc6936-8e70-409c-a6d9-995be4360a43",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('price', 1.1);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : {{price}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "181e79c5-3379-49e3-a8d3-478078204254",
+								"exec": [
+									" pm.test(\"Update purchase category ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users purchase category ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const purchases = pm.environment.get('purchases');",
+									"    const purchase = purchases[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(purchase.name);",
+									"    pm.expect(responseJson.category).to.eql(pm.variables.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(purchase.price);",
+									"    pm.expect(responseJson.vendor).to.eql(purchase.vendor);",
+									"",
+									"    purchase.category = responseJson.category;",
+									"    purchases[0] = purchase;",
+									"    pm.environment.set('purchases', purchases);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2c232862-9040-4a1e-9e42-741681c57e8c",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('category', 'newCategory');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\" : \"{{category}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ff3971a9-406c-4904-ab77-2f3d02e662e0",
+								"exec": [
+									" pm.test(\"Update purchase ko id status\", function() {",
+									"    pm.response.to.have.status(412);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7f02ac2d-6ce1-410b-9457-0c3b326da8af",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', 'fakeId');",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_purchases_modify_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa4dfacd-1eca-421c-9aab-967b95fcb09e",
+								"exec": [
+									" pm.test(\"Update purchase ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4d93c702-73a3-48e1-8544-25a1f5c53cd8",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const purchases = pm.environment.get('purchases');",
+									"pm.variables.set('_id', purchases[0]._id);",
+									"pm.variables.set('token', user.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/purchases/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"purchases",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_wrong_role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4f7ad2e0-505b-4632-81f4-3cf402a9bf09",
+								"exec": [
+									" pm.test(\"Signup ko wrong role\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"wrongrole\",\n    \"email\" : \"wrongrole@emil.com\",\n    \"password\" : \"mypasswrod\",\n    \"role\" : \"wrong\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_noname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup no name\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"\",\n    \"email\" : \"email@emial.com\",\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_noemail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup no emil\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"name\",\n    \"email\" : \"\",\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_signup_nopassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Signup no password\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"name\",\n    \"email\" : \"email@emial.com\",\n    \"password\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_login_ko",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f075aeb-6d6a-4020-891d-eca3eb8375a1",
+								"exec": [
+									"pm.test(\"Users login ko status\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"wrongpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_login_noemail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Login no name\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"\",\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_login_nopassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d133e99-afdc-4be6-8513-e3b3c8ee9784",
+								"exec": [
+									" pm.test(\"Login no password\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"email@emial.com\",\n    \"password\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "623fa61e-3c3a-4d38-a8cc-a91a9fcf308b",
+								"exec": [
+									"pm.test(\"Users get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Users get ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(user.name);",
+									"    pm.expect(responseJson._id).to.eql(user._id);",
+									"    pm.expect(responseJson.email).to.eql(user.email);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "01b197dc-e2eb-4611-8a58-233114258b5c",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_no_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "01ee89dc-868f-46af-93ed-36918121816a",
+								"exec": [
+									"pm.test(\"Users get no id\", function() {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d98644d5-90b0-432b-bed2-600d7188b8ed",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_fakeid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d464009-725e-4459-91a1-dc881be72f76",
+								"exec": [
+									"pm.test(\"Users get fake id\", function() {",
+									"    pm.response.to.have.status(412);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0be8a57f-d460-46ec-8e19-4a722740f30f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/fakeid?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"fakeid"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_id_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "137f69bb-44b9-4e68-9091-40119ce84848",
+								"exec": [
+									"pm.test(\"Users get ok admin\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Users get ok admin data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(user.name);",
+									"    pm.expect(responseJson._id).to.eql(user._id);",
+									"    pm.expect(responseJson.email).to.eql(user.email);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fb263b42-7837-4c30-9ccd-420ffa5443fa",
+								"exec": [
+									"",
+									"const admin = pm.environment.get('admin');",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('_token', admin.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{_token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{_token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_get_by_id_vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81ac54f6-8807-4474-aaa1-8923048589ae",
+								"exec": [
+									"pm.test(\"Users get ko auth\", function() {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fa58218f-9602-468b-aa4c-a855acb6af91",
+								"exec": [
+									"",
+									"const users = pm.environment.get('users');",
+									"",
+									"const vendor = pm.environment.get('vendor');",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', vendor.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9804992b-c071-491e-bafe-fbd4c4a36ad5",
+								"exec": [
+									" pm.test(\"Users update name ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users update name ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
+									"    pm.expect(responseJson.email).to.eql(user.email);",
+									"",
+									"    user.name = responseJson.name;",
+									"    pm.environment.set('user', user);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8a6aaaa0-63a9-4587-baac-9506c192bf9d",
+								"exec": [
+									"pm.environment.set('newName', 'newName');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba21a86b-aa3b-4df3-b31d-16c6fda77c7f",
+								"exec": [
+									" pm.test(\"Users update email ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users update email ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(user.name);",
+									"    pm.expect(responseJson.email).to.eql(pm.environment.get('newEmail'));",
+									"",
+									"    user.email = responseJson.email;",
+									"    pm.environment.set('user', user);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c79c2534-0fa1-4b73-a6c0-14a3ffe153fc",
+								"exec": [
+									"pm.environment.set('newEmail', 'newEmail');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"{{newEmail}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a808da7d-53b8-4298-95b3-496238b2d930",
+								"exec": [
+									" pm.test(\"Users update all ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users update all ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
+									"    pm.expect(responseJson.email).to.eql(pm.environment.get('newEmail'));",
+									"",
+									"    const user = pm.environment.get('user');",
+									"    user.name = responseJson.name;",
+									"    user.email = responseJson.email;",
+									"    pm.environment.set('user', user);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f62a92b7-50c7-4b93-aca6-1f9ba287b78f",
+								"exec": [
+									"pm.environment.set('newName', 'newName2');",
+									"pm.environment.set('newEmail', 'newEmail2');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\",\n    \"email\" : \"{{newEmail}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_by_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4023cfe1-0f57-46c1-a8ea-8f0ac2c6947f",
+								"exec": [
+									" pm.test(\"Users update name by admin ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users update name by admin ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const user = pm.environment.get('user');",
+									"",
+									"    pm.expect(responseJson.name).to.eql(pm.environment.get('newName'));",
+									"    pm.expect(responseJson.email).to.eql(user.email);",
+									"",
+									"    user.name = responseJson.name;",
+									"    pm.environment.set('user', user);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d191e6a1-dd6e-49f1-a6f4-51459d80f09a",
+								"exec": [
+									"pm.environment.set('newName', 'nameByAdmin');",
+									"",
+									"const admin = pm.environment.get('admin');",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', admin.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_by_vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "56b10b75-63c6-41c0-9bd7-866659271cba",
+								"exec": [
+									" pm.test(\"Users update name by vendor ko\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "462164db-7d97-4b9d-8a78-18b7f16be159",
+								"exec": [
+									"pm.environment.set('newName', 'nameByVendor');",
+									"",
+									"const vendor = pm.environment.get('vendor');",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', vendor.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_ko_field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "96e564f4-b977-435b-b243-6668f778ebc3",
+								"exec": [
+									" pm.test(\"Users update name ko field\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a623fda3-ca74-4fd7-aa3b-516f31b4e841",
+								"exec": [
+									"pm.environment.set('newName', 'newName');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unknownField\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7a84d33-e9f4-4092-87a6-ce8571ee4759",
+								"exec": [
+									" pm.test(\"Users update name ko id\", function() {",
+									"    pm.response.to.have.status(412);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c3cf3285-ef52-452d-a0f2-9f8f408be2fe",
+								"exec": [
+									"pm.environment.set('newName', 'newName');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', 'fakeId');",
+									"pm.variables.set('token', user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_users_update_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d4078dff-ce5d-4de9-9204-b70516dbe3b3",
+								"exec": [
+									" pm.test(\"Users update name ko token\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4dceeed1-d18a-4791-b999-dc63bf6ab162",
+								"exec": [
+									"pm.environment.set('newName', 'newName');",
+									"",
+									"const user = pm.environment.get('user');",
+									"",
+									"pm.variables.set('_id', user._id);",
+									"pm.variables.set('token', 'fake_token');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{newName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0297da5-90b6-4e7a-9c09-cb97d09535ec",
+								"exec": [
+									" pm.test(\"Delete product ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Delete product ok data\", function() {",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    const product = products.shift();",
+									"    pm.environment.set('products', products);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson.name).to.eql(product.name);",
+									"    pm.expect(responseJson.category).to.eql(product.category);",
+									"    pm.expect(responseJson.price).to.eql(product.price);",
+									"    pm.expect(responseJson.vendor).to.eql(product.vendor);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2cac00d5-faac-4c6b-bd2d-80a187520f6a",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove_admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c19c5af-d41d-45d7-a26b-1e7f096c653f",
+								"exec": [
+									" pm.test(\"Delete product ok admin status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Delete product ok admin data\", function() {",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    const product = products.shift();",
+									"    pm.environment.set('products', products);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    pm.expect(responseJson.name).to.eql(product.name);",
+									"    pm.expect(responseJson.category).to.eql(product.category);",
+									"    pm.expect(responseJson.price).to.eql(product.price);",
+									"    pm.expect(responseJson.vendor).to.eql(product.vendor);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "55ea6c5f-a32b-4d3e-9147-a51db80ae28a",
+								"exec": [
+									"const admin = pm.environment.get('admin');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', admin.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f3cf615a-0d1f-43e2-b7c0-730b7cc9f9de",
+								"exec": [
+									" pm.test(\"Delete product ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5a6d0136-d9d2-4a51-b565-065552bc4e1d",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', user.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7b76adb-140d-4912-ad7b-1d1e9044fd0a",
+								"exec": [
+									" pm.test(\"Delete product ko token status\", function() {",
+									"    pm.response.to.have.status(412);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "197a60c4-7cff-4ed6-9f05-7647112b079c",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"pm.variables.set('_id', 'fakeid');",
+									"pm.variables.set('token', vendor.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_remove_no_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "efb6d3d3-be8d-418a-9e1f-bd27b90a5716",
+								"exec": [
+									" pm.test(\"Delete product no token ok status\", function() {",
+									"    pm.response.to.have.status(400);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8e1d61e4-1f6f-43a6-985f-2647f491d7f3",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0758d500-9388-4e27-9dbc-1708e1b36fad",
+								"exec": [
+									"pm.test(\"Products get ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get ok data\", function() {",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    let productsIds = products.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(productsIds).to.include(p._id);",
+									"        productsIds = productsIds.filter((value, index, arr) => { return value != p._id;});",
+									"    }",
+									"    pm.expect(productsIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "66137951-6a30-4390-96e0-5c2b8ac60829",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_filtered_name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ca09dc3-ad5d-4f40-9989-a5716e968501",
+								"exec": [
+									"pm.test(\"Products get filetered name ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get fileterd name ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.name).to.contain(pm.variables.get('name'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b8738d61-15e5-41ef-8729-f3df11b3740d",
+								"exec": [
+									"pm.variables.set('name', 'ar');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \".*{{name}}.*\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_filtered_price_eq",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "33a64d62-8017-46bb-99eb-c4b74a47c74a",
+								"exec": [
+									"pm.test(\"Products get fileted price eq ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get filtered price eq ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.eq(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c682996b-f7c8-41dc-a45b-ff639c821f39",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \"=\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_filtered_price_lt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9b03f9b-b3d7-4435-9be4-15b89a4e9341",
+								"exec": [
+									"pm.test(\"Products get fileted price lt ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get filtered price lt ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.lt(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "37cf82e7-8297-458c-9efe-afe6525e78db",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \"<\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_filtered_price_lte",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "609eb1c6-e7fb-4230-aa8e-e45ed9b213d8",
+								"exec": [
+									"pm.test(\"Products get fileted price lte ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get filtered price lte ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.lte(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "59120895-a418-4d81-b9e6-e62d4d7a4244",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \"<=\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_filtered_price_gt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ebeb6c28-faab-41ed-9cf6-1c82b6470747",
+								"exec": [
+									"pm.test(\"Products get fileted price gt ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get filtered price gt ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.gt(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dec80bb8-efb2-4b0c-a996-91ee5a4ad2a5",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \">\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_filtered_price_gte",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "01f0d2c5-c794-43f5-ba3f-677d99492803",
+								"exec": [
+									"pm.test(\"Products get fileted price gte ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get filtered price gte ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let p of responseJson) {",
+									"        ",
+									"        pm.expect(p.price).to.gte(pm.variables.get('value'));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8b21a9e8-4afd-4940-9ff6-023495935559",
+								"exec": [
+									"",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('value', products[0].price);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : { \"op\" : \">=\", \"value\" : \"{{value}}\" }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_by_category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5eab857b-6854-4645-ad26-0a33b25a6594",
+								"exec": [
+									"pm.test(\"Products get by category ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get by category ok data\", function() {",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    let productsIds = products.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let category of responseJson) {",
+									"        for (let p of category.elements) {",
+									"            ",
+									"            pm.expect(p.category).to.eql(category._id);",
+									"            pm.expect(productsIds).to.include(p._id);",
+									"            productsIds = productsIds.filter((value, index, arr) => { return value != p._id;});",
+									"        }",
+									"    }",
+									"    pm.expect(productsIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5b3a1cb0-9664-40c5-80d7-b651bf423f4e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?groupBy=category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_by_vendor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9d9e1c0-f066-426c-b88b-ca414ae39563",
+								"exec": [
+									"pm.test(\"Products get by vendor ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Products get by vendor ok data\", function() {",
+									"",
+									"    const products = pm.environment.get('products');",
+									"    let productsIds = products.map((p) => p._id);",
+									"",
+									"    const responseJson = pm.response.json();",
+									"",
+									"    for (let vendor of responseJson) {",
+									"        for (let p of vendor.elements) {",
+									"            ",
+									"            pm.expect(p.vendor).to.eql(vendor._id);",
+									"            pm.expect(productsIds).to.include(p._id);",
+									"            productsIds = productsIds.filter((value, index, arr) => { return value != p._id;});",
+									"        }",
+									"    }",
+									"    pm.expect(productsIds.length).eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fb0bf448-b997-4cca-b8fe-44a667bde378",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?groupBy=vendor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "vendor"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_products_get_by_ko",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f0a6652e-0ad9-4808-a64f-e65a56ecb20a",
+								"exec": [
+									"pm.test(\"Products get by vendor ok status\", function() {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "49088481-adea-41a3-bf08-57f517809ffe",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products?groupBy=wrongField",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "wrongField"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55aff3b6-71e2-477e-8393-c844c0f52ea7",
+								"exec": [
+									" pm.test(\"Update product name ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users product name ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const products = pm.environment.get('products');",
+									"    const product = products[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(pm.variables.get('name'));",
+									"    pm.expect(responseJson.category).to.eql(product.category);",
+									"    pm.expect(responseJson.price).to.eql(product.price);",
+									"    pm.expect(responseJson.vendor).to.eql(product.vendor);",
+									"",
+									"    product.name = responseJson.name;",
+									"    products[0] = product;",
+									"    pm.environment.set('products', products);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "651e9ea0-0dd9-4117-96d7-dbc4b3f141dd",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d3d8ce0c-fa91-408c-89e1-f76279dddb91",
+								"exec": [
+									" pm.test(\"Update product price ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users product price ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const products = pm.environment.get('products');",
+									"    const product = products[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(product.name);",
+									"    pm.expect(responseJson.category).to.eql(product.category);",
+									"    pm.expect(responseJson.price).to.eql(pm.variables.get('price'));",
+									"    pm.expect(responseJson.vendor).to.eql(product.vendor);",
+									"",
+									"    product.price = responseJson.price;",
+									"    products[0] = product;",
+									"    pm.environment.set('products', products);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "45bf6a00-ad30-4f3b-b40a-8ceff7bdad04",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('price', 1.1);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\" : \"{{price}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "387b9c04-3538-4b41-8d81-0e8e322c4f45",
+								"exec": [
+									" pm.test(\"Update product category ok status\", function() {",
+									"    pm.response.to.have.status(200);",
+									" });",
+									"",
+									"pm.test(\"Users product category ok data\", function() {",
+									"",
+									"    const responseJson = pm.response.json();",
+									"    const products = pm.environment.get('products');",
+									"    const product = products[0];",
+									"    ",
+									"    pm.expect(responseJson.name).to.eql(product.name);",
+									"    pm.expect(responseJson.category).to.eql(pm.variables.get('category'));",
+									"    pm.expect(responseJson.price).to.eql(product.price);",
+									"    pm.expect(responseJson.vendor).to.eql(product.vendor);",
+									"",
+									"    product.category = responseJson.category;",
+									"    products[0] = product;",
+									"    pm.environment.set('products', products);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6a2a0c09-bb1a-4318-ae19-9cee0b88f380",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('category', 'newCategory');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\" : \"{{category}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_ko_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0b53295-4068-45e4-b363-869f9953931d",
+								"exec": [
+									" pm.test(\"Update product ko id status\", function() {",
+									"    pm.response.to.have.status(412);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "29faf12c-251a-4ab9-ba24-6ba5883c1ad4",
+								"exec": [
+									"const vendor = pm.environment.get('vendor');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', 'fakeid');",
+									"pm.variables.set('token', vendor.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tests_product_modify_ko_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c16a86b-738b-4edb-92ee-2e3eab2ae847",
+								"exec": [
+									" pm.test(\"Update product ko token status\", function() {",
+									"    pm.response.to.have.status(401);",
+									" });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3a75a1db-d462-4b3c-af06-8f8ea09ef47c",
+								"exec": [
+									"const user = pm.environment.get('user');",
+									"const products = pm.environment.get('products');",
+									"pm.variables.set('_id', products[0]._id);",
+									"pm.variables.set('token', user.token);",
+									"pm.variables.set('name', 'newName');",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/products/{{_id}}?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

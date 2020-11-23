@@ -1,0 +1,16 @@
+collection,name,email,password,role,category,price
+user,default,default@emil.com,defaultpass,"","",""
+user,user,user@emil.com,userpass,user,"",""
+user,admin,admin@emil.com,adminpass,admin,"",""
+user,vendor,vendor@emil.com,vendorpass,vendor,"",""
+product,Bordertown,"","","",Health,308.64
+product,Edge of Darkness,"","","",Automotive,865.56
+product,Beauty and the Boss,"","","",Health,1199.19
+product,"Passionate Friends, The (a.k.a. One Woman's Story)","","","",Beauty,738.72
+product,King Corn,"","","",Books,1044.01
+product,Marjoe,"","","",Shoes,189.59
+product,One Man Up (L'uomo in più),"","","",Books,519.91
+product,Something New,"","","",Sports,863.13
+product,Stories We Tell,"","","",Automotive,883.50
+product,Silvestre,"","","",Jewelery,228.52
+last
