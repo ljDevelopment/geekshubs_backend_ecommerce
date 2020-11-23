@@ -21,9 +21,10 @@
 2. [Implemented requirements](#implemented-requirements)
 3. [DB](#db)
 4. [Backend endpoints](#backend-endpoints)
-	1. [User endpoints](#user-endpoints)
-	2. [Product endpoints](#product-endpoints)
-	3. [Purchase endpoints](#purchase-endpoints)
+	1. [Token authentication](#token-authentication)
+	2. [User endpoints](#user-endpoints)
+	3. [Product endpoints](#product-endpoints)
+	4. [Purchase endpoints](#purchase-endpoints)
 
 ## How to...
 ### How to install
@@ -114,7 +115,14 @@ const PurchaseSchema = new mongoose.Schema({
 
 ## Backend endpoints
 
+
+### Token authentication
 'token' used in requests is the one provided to the requester when login. It is used to validate request and permissions of the requester.
+
+Token can be sent in one of the following options:
+
+ - Header.token = 'Bearer `token`'
+ - Query.token =  '`token`'
 
 ### User endpoints
 *[routes/users.js](routes/users.js)*
@@ -174,7 +182,7 @@ Retrieves the data of one user. To get the user data, the token provided must be
 **GET** /users/:id
 
 - [params] id: string (required)
-- [body | query | params]token: string (required)
+- [[token authentication](#token-authentication)] token: string (required)
 
 **status**(200): Ok
 ```json
@@ -190,7 +198,7 @@ Retrieves the data of one user. To get the user data, the token provided must be
 ```
 
 **status**(400): Any parameter missing
-**status**(401): Token expired, insufficient permissions.
+**status**(401): Insufficient permissions.
 **status**(412): User not found.
 
 #### Update user data
@@ -199,7 +207,7 @@ Changes the data of one user. To update the user data, the token provided must b
 **PUT** /users/:id
 
 - [params] id: string (required)
-- [query]token: string (required)
+- [[token authentication](#token-authentication)] token: string (required)
 - [body] name: string (optional)
 - [body] email: string (optional)
 - [body] password: string (optional)
@@ -218,7 +226,7 @@ Changes the data of one user. To update the user data, the token provided must b
 ```
 
 **status**(400): Any parameter missing or wrong field provided to be updated.
-**status**(401): Token expired, insufficient permissions.
+**status**(401): Insufficient permissions.
 **status**(412): User not found.
 
 ### Product endpoints
@@ -232,7 +240,7 @@ Creates a new product. If ok, returns the data of the new product created.
 - [body] category: string (required)
 - [body] price: number (required)
 - [body] vendor: string (required)
-- [body | query | params] token: string (required)
+- [[token authentication](#token-authentication)] token: string (required)
 
 **status**(200): Ok
 ```json
@@ -248,7 +256,7 @@ Creates a new product. If ok, returns the data of the new product created.
 }
 ```
 **status**(400): Any parameter missing.
-**status**(401): Token expired, insufficient permissions.
+**status**(401): Insufficient permissions.
 
 #### Delete product
 Deletes de product with the given id. Only admin or the vendor of the product can delete the product. If the product is removed ok, it is returned.
@@ -256,7 +264,7 @@ Deletes de product with the given id. Only admin or the vendor of the product ca
 **DELETE** /products/:id
 
 - [body | query | params] id: string (required)
-- [body | query | params] token: string (required)
+- [[token authentication](#token-authentication)] token: string (required)
 
 **status**(200): Ok
 ```json
@@ -272,7 +280,7 @@ Deletes de product with the given id. Only admin or the vendor of the product ca
 }
 ```
 **status**(400): Any parameter missing.
-**status**(401): Token expired, insufficient permissions or user not found.
+**status**(401): Insufficient permissions or user not found.
 **status**(412): No product found.
 
 #### Update product data
@@ -281,7 +289,7 @@ Changes the data of one product. To update the product data, the token provided 
 **PUT** /products/:id
 
 - [body | query | params]  id: string (required)
-- [query] token: string (required)
+- [[token authentication](#token-authentication)]  token: string (required)
 - [body] name: string (optional)
 - [body] category: string (optional)
 - [body] price: number (optional)
@@ -301,7 +309,7 @@ Changes the data of one product. To update the product data, the token provided 
 ```
 
 **status**(400): Any parameter missing or wrong field provided to be updated.
-**status**(401): Token expired, insufficient permissions.
+**status**(401): Insufficient permissions.
 **status**(412): Product not found.
 
 #### Get products
@@ -372,7 +380,7 @@ Creates a new purchase. If ok, returns the data of the new purchase. It doesn't 
 - [body] price: number (required)
 - [body] buyer: string (required) (ref to user id)
 - [body] vendor: string (required) (ref to user id)
-- [body | query | params] token: string (required)
+- [[token authentication](#token-authentication)] token: string (required)
 
 **status**(200): Ok
 ```json
@@ -390,14 +398,14 @@ Creates a new purchase. If ok, returns the data of the new purchase. It doesn't 
 ```
 
 **status**(400): Any parameter missing.
-**status**(401): Token expired, insufficient permissions.
+**status**(401): Insufficient permissions.
 
 #### Get purchases
 Get the list of purchases. Supports filtering and grouping by. An user only can get its purchases, and a vendor only can get the purchases of its products.
 
 **GET** /purchases/
 
-- [body | query | params]  token: string (required)
+- [[token authentication](#token-authentication)]  token: string (required)
 - [body | query | params]  groupBy: string (optional)
 - [body] filter: <filter object> (optional)
 
@@ -452,7 +460,6 @@ filter object:
 ]
 ```
 **status**(400): Filter error or number operator not supported.
-**status**(401): Token expired.
 
 #### Update purchase data
 Changes the data of one purchase. To update the product data, the token provided must be from its vendor or from an admin.
@@ -460,7 +467,7 @@ Changes the data of one purchase. To update the product data, the token provided
 **PUT** /purchase/:id
 
 - [body | query | params]  id: string (required)
-- [query] token: string (required)
+- [[token authentication](#token-authentication)]  token: string (required)
 - [body] name: string (optional)
 - [body] category: string (optional)
 - [body] price: number (optional)
@@ -480,5 +487,5 @@ Changes the data of one purchase. To update the product data, the token provided
 ```
 
 **status**(400): Any parameter missing or wrong field provided to be updated.
-**status**(401): Token expired, insufficient permissions.
+**status**(401):  Insufficient permissions.
 **status**(412): Purchase not found.
