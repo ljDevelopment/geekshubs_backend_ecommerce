@@ -41,6 +41,7 @@
 	1. Production: `npm start` --> `node -r dotenv/config ./bin/www`
 	2. Development: `npm run dev` --> `nodemon -r dotenv/config ./bin/www` (if you have nodemon package installed as dev)
 ### How to run unit tests
+(only if process.env.ENV === 'dev')
 1. Open [Postman](https://www.postman.com/).
 2. Import file *tests/ecommerce.postman_collection.json*.
 3. Open Postman's Runner.
@@ -149,6 +150,7 @@ Creates a new user. Default role if not provided is 'user'. If ok, returns the d
 }
 ```
 **status**(400): Any parameter missing or wrong role.
+
 **status**(412): Duplicated email
 
 #### User login
@@ -173,6 +175,7 @@ Validates the credentials sent. If ok, returns the data of the user, plus the ge
 ```
 
 **status**(400): Any parameter missing
+
 **status**(401): User not found with that credentials
 
 
@@ -197,8 +200,10 @@ Retrieves the data of one user. To get the user data, the token provided must be
 }
 ```
 
-**status**(400): Any parameter missing
+**status**(400): Any parameter missing.
+
 **status**(401): Insufficient permissions.
+
 **status**(412): User not found.
 
 #### Update user data
@@ -226,7 +231,9 @@ Changes the data of one user. To update the user data, the token provided must b
 ```
 
 **status**(400): Any parameter missing or wrong field provided to be updated.
+
 **status**(401): Insufficient permissions.
+
 **status**(412): User not found.
 
 ### Product endpoints
@@ -256,6 +263,7 @@ Creates a new product. If ok, returns the data of the new product created.
 }
 ```
 **status**(400): Any parameter missing.
+
 **status**(401): Insufficient permissions.
 
 #### Delete product
@@ -280,7 +288,9 @@ Deletes de product with the given id. Only admin or the vendor of the product ca
 }
 ```
 **status**(400): Any parameter missing.
+
 **status**(401): Insufficient permissions or user not found.
+
 **status**(412): No product found.
 
 #### Update product data
@@ -309,7 +319,9 @@ Changes the data of one product. To update the product data, the token provided 
 ```
 
 **status**(400): Any parameter missing or wrong field provided to be updated.
+
 **status**(401): Insufficient permissions.
+
 **status**(412): Product not found.
 
 #### Get products
@@ -398,6 +410,7 @@ Creates a new purchase. If ok, returns the data of the new purchase. It doesn't 
 ```
 
 **status**(400): Any parameter missing.
+
 **status**(401): Insufficient permissions.
 
 #### Get purchases
@@ -487,5 +500,7 @@ Changes the data of one purchase. To update the product data, the token provided
 ```
 
 **status**(400): Any parameter missing or wrong field provided to be updated.
+
 **status**(401):  Insufficient permissions.
+
 **status**(412): Purchase not found.
